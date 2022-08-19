@@ -39,13 +39,14 @@
   </div>
 
   <!-- Title  -->
-  <div class="title">&nbsp; &nbsp; MONTHLY TRACKER</div>
+  <!-- <div class="title">&nbsp; &nbsp; MONTHLY TRACKER</div> -->
+  <br />
   <br />
   <!-- Filter -->
   <div class="filter">
-    <span class="side-header">Filter</span>
-    <br />
-    <br />
+    <span class="side-header">Filter &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+    <!-- <br />
+    <br /> -->
     <mat-form-field appearance="outline">
       <mat-label>Month</mat-label>
       <mat-select
@@ -94,7 +95,7 @@
       <div
         class="list"
         *ngIf="allTrackers.length > 0 || showSpinner; else noAllTrackers"
-      >
+      ><br>
         <mat-card class="heading">
           <div>EMPLOYEE EMAIL</div>
           <div>STATUS</div>
@@ -181,7 +182,6 @@
         </div>
       </ng-template>
     </mat-tab>
-
     <!-- SUBMITTED Records -->
     <mat-tab>
       <ng-template mat-tab-label>

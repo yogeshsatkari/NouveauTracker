@@ -1,23 +1,22 @@
 <div class="main-container">
   <div class="container1" >
+    <br><br>
     <mat-toolbar class="nav">
       <div class="flexbox-row">
         <img id="logo" src="../../../assets/submit.png" [ngClass]="{'month-submission-open':monthlySubmissionActive}" (click)="monthlySubmission()" matTooltip="MONTHLY SUBMISSION" [hidden]="!monthlySubmissionActive">
-        &nbsp;&nbsp;<span [hidden]="!monthlySubmissionActive" id="submitMonthReport" data-text="Submit Month's Report">Submit Month's Report</span ><span class="font-40px" [hidden]="monthlySubmissionActive">CALENDAR</span>
+        &nbsp;&nbsp;<span [hidden]="!monthlySubmissionActive" id="submitMonthReport" data-text="Submit Month's Report">Submit Month's Report</span ><span class="font-40px" [hidden]="monthlySubmissionActive"></span>          <!-- calendar -->
       </div>
   
-      <div class="font-30px width-30per">
-  
-        <mat-icon class="font-50px clickable" (click)="showPreviousMonth()">keyboard_arrow_left</mat-icon>
-        <mat-icon class="font-50px clickable " (click)="showNextMonth()">
-          keyboard_arrow_right</mat-icon>
-   <span class="margin-top">{{date.format('MMMM')}} {{date.format('YYYY')}}</span>
+      <div class="font-20px width-30per">
+        <mat-icon class="font-20px clickable" (click)="showPreviousMonth()">keyboard_arrow_left</mat-icon>
+        <span class="margin-top">{{date.format('MMMM')}} {{date.format('YYYY')}}</span>
+        <mat-icon class="font-20px clickable " (click)="showNextMonth()">keyboard_arrow_right</mat-icon>
       </div>
-      <div id="datepicker">
-        <mat-form-field appearance="fill">
+      <div id="datepicker" style="background: #f5f7fb;">
+        <mat-form-field appearance="fill"style="background: #f5f7fb;">
           <mat-label>Choose a date</mat-label>
           <input matInput [matDatepicker]="picker" [(ngModel)]="desiredDate">
-          <mat-hint>MM/DD/YYYY</mat-hint>
+          <!-- <mat-hint>MM/DD/YYYY</mat-hint> -->
           <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
           <mat-datepicker #picker></mat-datepicker>
         </mat-form-field>
@@ -38,44 +37,43 @@
       <mat-grid-list cols="7" rowHeight="2.5:1" formArrayName="calendarDays">
         
         <mat-grid-tile [ngClass]="{'zoom':tracker.state&&!isFutureDate(tracker),'currentDay':tracker.currentDay&&tracker.state,'holiday':isWeekend(tracker),'disable':isFutureDate(tracker)&&!isWeekend(tracker),'bgRed':getTotalLoggedHours(tracker)==0 &&!isWeekend(tracker)&&!isFutureDate(tracker),'bgGreen':getTotalLoggedHours(tracker)==8 ||(getTotalLoggedHours(tracker)==4 && isHalfdayLeave(tracker)),'bgPurple':isFullDayLeave(tracker),'bgYellow':isHalfdayLeave(tracker) && getTotalLoggedHours(tracker)<4}" *ngFor="let tracker of trackerListMonth">
-          <span matBadge={{getTotalLoggedHours(tracker)}} matBadgeOverlap=false [hidden]="getTotalLoggedHours(tracker)==8 || isWeekend(tracker)|| isFutureDate(tracker) ||isFullDayLeave(tracker)" matTooltip="Hrs Logged" matBadgeColor="warn"></span>
+          <!-- <span matBadge={{getTotalLoggedHours(tracker)}} matBadgeOverlap=false [hidden]="getTotalLoggedHours(tracker)==8 || isWeekend(tracker)|| isFutureDate(tracker) ||isFullDayLeave(tracker)" matTooltip="Hrs Logged" matBadgeColor="warn"></span> -->
           
-            <mat-icon class="openDialogue" (click)="openDialog(tracker)" [hidden]="!tracker.state||isFutureDate(tracker)" >expand_more</mat-icon>
+            <!-- <mat-icon class="openDialogue" (click)="openDialog(tracker)" [hidden]="!tracker.state||isFutureDate(tracker)" >expand_more</mat-icon> -->
             <div class="flexbox">
-              <p style="font-size:30px">{{tracker.dayOfMonth}}</p>
+              <p style="font-size:30px">{{tracker.dayOfMonth}} &nbsp;&nbsp;</p>
+              <span matBadge={{getTotalLoggedHours(tracker)}} matBadgeOverlap=false [hidden]="getTotalLoggedHours(tracker)==8 || isWeekend(tracker)|| isFutureDate(tracker) ||isFullDayLeave(tracker)" matTooltip="Hrs Logged" matBadgeColor="warn"></span>
+              <mat-icon class="openDialogue" (click)="openDialog(tracker)" [hidden]="!tracker.state||isFutureDate(tracker)" >expand_more</mat-icon>
 
             </div>
-     
       
         </mat-grid-tile>
   
       </mat-grid-list> 
-      
     </form>
-    <div class="color-index">
-      <div>
-        <div id="red"></div>
-        <span> No Logs Found</span>
-      </div>
-      <div>
-        <div id="green"></div>
-        <span> 8 hr Log Complete</span>
-      </div>
-      <div>
-        <div id="yellow"></div>
-        <span> Half Day with incomplete log</span>
-      </div>
-      </div>
-      <div class="color-index1">
-      <div>
-        <div id="purple"></div>
-        <span> Full Day Leave</span>
-      </div>
-      <div>
-        <div id="no-fill"></div>
-        <span> Logged Hours < 8 </span>
-      </div>
+      <div class="color-index">
+        <div>
+          <div id="red"></div>
+          <span> No Logs Found</span>
+        </div>
+        <div>
+          <div id="green"></div>
+          <span> 8 hr Log Complete</span>
+        </div>
+        <div>
+          <div id="yellow"></div>
+          <span> Half Day with incomplete log</span>
+        </div>
+        <div>
+          <div id="purple"></div>
+          <span> Full Day Leave</span>
+        </div>
+        <div>
+          <div id="no-fill"></div>
+          <span> Logged Hours < 8 </span>
+        </div>
     </div>
 
+    
   </div>
 </div>

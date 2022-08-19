@@ -1,3 +1,7 @@
+mat-tab-group {
+  background-color: #f8f8fb;
+}
+
 table {
     width: 100%;
   }
@@ -6,6 +10,7 @@ table {
     font-size: 14px;
     width: 20%;
     margin:0 20px;
+    
   }
   .width-100px{
     width:150px;

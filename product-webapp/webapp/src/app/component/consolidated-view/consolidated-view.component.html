@@ -1,4 +1,4 @@
-<h1 data-text="CONSOLIDATED REPORTS">CONSOLIDATED REPORTS</h1>
+<!-- <h1 data-text="CONSOLIDATED REPORTS">CONSOLIDATED REPORTS</h1> -->
 <mat-tab-group>
     <mat-tab label="Employee">
         <div>
@@ -62,7 +62,7 @@
             <ng-container matColumnDef="projects-programs">
                 <th mat-header-cell *matHeaderCellDef>
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    Projects-Programs</th>
+                    Projects and Programs</th>
                 <td mat-cell *matCellDef="let element">
                     <mat-accordion>
                         <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
@@ -186,16 +186,17 @@
 
             <ng-container matColumnDef="organizationName">
                 <th mat-header-cell *matHeaderCellDef> Organisation </th>
-                <td mat-cell *matCellDef="let element" ><img class="profile" *ngIf="element.organizationBrandLogo" src="data:image/png;base64,{{element.organizationBrandLogo}}" alt="imagefound"> <img class="profile" *ngIf="!element.organizationBrandLogo" src="../../../assets/noProfileImage.jpg" alt="imageNotFound"> {{element.organizationName}}</td>
+                <!-- <td mat-cell *matCellDef="let element" ><img class="profile" *ngIf="element.organizationBrandLogo" src="data:image/png;base64,{{element.organizationBrandLogo}}" alt="imagefound"> <img class="profile" *ngIf="!element.organizationBrandLogo" src="../../../assets/noProfileImage.jpg" alt="imageNotFound"> {{element.organizationName}}</td> -->
+                <td mat-cell *matCellDef="let element" > {{element.organizationName}}</td>
             </ng-container>
 
             <ng-container matColumnDef="managerEmailId">
-                <th mat-header-cell *matHeaderCellDef align="center"> Manager </th>
+                <th mat-header-cell *matHeaderCellDef align="center"> Manager</th>
                 <td mat-cell *matCellDef="let element" align="center"> {{element.managerEmailId}} </td>
             </ng-container>
 
             <ng-container matColumnDef="memberList">
-                <th mat-header-cell *matHeaderCellDef align="center"> Working Members </th>
+                <th mat-header-cell *matHeaderCellDef align="center"> Members </th>
                 <td mat-cell *matCellDef="let element" align="center"> 
                     <mat-accordion>
                         <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
@@ -295,6 +296,7 @@
                 <th mat-header-cell *matHeaderCellDef align="center"> Manager </th>
                 <td mat-cell *matCellDef="let element" align="center"> {{element.managerEmailId}} </td>
             </ng-container>
+            
 
             <ng-container matColumnDef="memberList">
                 <th mat-header-cell *matHeaderCellDef align="center"> Working Members </th>

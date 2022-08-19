@@ -100,9 +100,11 @@ button {
 .filter {
   position: absolute;
   /* left:750px; */
-  left: 350px;
+  /* left: 1%; */
   top:60px;
   float: right;
+  font-weight: 500;
+  /* font-size: 15px; */
   background: transparent;
   padding: 20px;
   border-radius: 5px;

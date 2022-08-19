@@ -1,7 +1,6 @@
 .example-spacer {
   flex: 1 1 auto;
 }
-
 .nav {
   display: flex;
   flex-flow: row nowrap;
@@ -12,35 +11,36 @@
 }
 
 mat-grid-tile {
-  background: whitesmoke;
-  border-radius: 10px;
+  background: rgb(206, 235, 247);
+  border-radius: 0px;
 
   transition: transform .1s;
-  border: 1px solid white;
+  border: 1px solid navy;
 }
 
 .zoom:hover {
-  transform: scale(1.1);
+  transform: scale(1.05);
+  transition-duration: 1000ms;
 }
 
 .main-container {
   background-color: #f5f7fb;
-
 }
 
 .container1 {
-
-  width: 97%;
-  margin: 10px;
+  margin-left: 5%;
+  width: 90%;
+  /* margin: 10px; */
   background-color: #f5f7fb;
 }
 
 .flexbox {
+  padding-top: 5px;
   display: flex;
-  flex-flow: column nowrap;
-  padding: 3px;
-  justify-content: space-between;
-  align-items: center;
+  /* flex-flow: column nowrap; */
+  /* padding: 3px; */
+  /* justify-content: space-between; */
+  /* align-items: center; */
 
 }
 
@@ -53,8 +53,8 @@ mat-grid-tile {
 }
 
 .openDialogue {
-  position: relative;
-  top: -30px;
+  /* position: relative; */
+  /* top: -30px; */
   margin-right: 5px;
   margin-top: 5px;
   cursor: pointer;
@@ -67,7 +67,7 @@ mat-grid-tile {
 }
 
 .font-30px {
-  font-size: 30px;
+  font-size: 25px;
 }
 
 .font-50px {
@@ -83,7 +83,7 @@ mat-grid-tile {
 }
 
 .holiday {
-  background-color: rgb(160, 155, 155);
+  background-color: rgb(185, 175, 175);
 }
 
 .color-green {
@@ -92,12 +92,11 @@ mat-grid-tile {
 }
 
 .disable {
-  background-color: rgb(215, 210, 210);
+  background-color: #dddfe5;
 }
 
 .color-header-calendar {
   background-color: whitesmoke;
-  text-shadow: 2px 2px lightblue;
 }
 
 #logo {
@@ -127,19 +126,19 @@ mat-grid-tile {
 
 .bgRed {
   /* background-color: rgb(235, 201, 201); */
-  border-top: 4px solid rgb(233, 97, 97);
+  border-top: 3px solid rgb(233, 97, 97);
 }
 
 .bgGreen {
-  border-top: 4px solid rgb(88, 144, 48);
+  border-top: 3px solid rgb(88, 144, 48);
 }
 
 .bgPurple {
-  border-top: 4px solid purple;
+  border-top: 3px solid purple;
 }
 
 .bgYellow {
-  border-top: 4px solid rgb(242, 255, 4);
+  border-top: 3px solid rgb(242, 255, 4);
 }
 
 .button {
@@ -213,21 +212,17 @@ mat-grid-tile {
 }
 
 .color-index {
-
-  width:250px;
-  height:fit-content;
-  position: fixed;
-  bottom: 35px;
-  left: 700px;
-
-}
-.color-index1 {
-
-  width:250px;
-  height:fit-content;
-  position: fixed;
-  bottom: 35px;
-  left: 950px;
+  
+  /* width:250px;
+  height:fit-content; */
+  /* position: fixed; */
+  /* bottom: 35px;
+  left: 700px; */
+  margin-top: 70px;
+  /* margin-bottom: 500px; */
+  padding-bottom: 75px;
+  display: flex;
+  justify-content: space-evenly;
 
 }
 .month-submission-open{
