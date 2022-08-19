@@ -1,0 +1,25 @@
+<div class="sidenav">
+    <div class="logo">
+        <hr style="color: white">
+        <a class="simple-text logo-mini">
+            <div class="logo-img">
+                <img src="../../../assets/trackerNewLogo.png" alt="">
+            </div>
+        </a>
+        <a class="simple-text logo-normal">
+            <!-- {{employee.role}} -->
+            <br>
+        </a>
+        <hr style="color: white">
+    </div>
+    <ul class="nav" >
+        <li *ngIf="employee?.role === 'OPERATIONS'" routerLinkActive="active"><a routerLink="monthly-tracker"><i  class="fa fa-clock-o"></i>Monthly Tracker</a></li>
+        <li routerLinkActive="active"><a routerLink="view-program-manager"><i  class="fa fa-thumb-tack"></i>All Programs</a></li>
+        <li routerLinkActive="active"><a routerLink="calendar"><i  class="fa fa-calendar-check-o"></i>Calendar</a></li>
+        <!-- <li routerLinkActive="active"><a routerLink="#"><i  class="fa-solid fa-people-group"></i>Teams</a></li> -->
+        <li *ngIf="employee?.role === 'OPERATIONS'" routerLinkActive="active"><a routerLink="cv"><i  class="fa fa-file-text-o"></i>Reports</a></li>
+        <li routerLinkActive="active"><a routerLink="analytics"><i  class="fa fa-file-text-o"></i>Analytics</a></li>
+        <!-- <li routerLinkActive="active"><a routerLink="#"><i  class="fas fa-cogs"></i>Settings</a></li> -->
+    </ul>
+
+</div>

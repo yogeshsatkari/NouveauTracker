@@ -1,0 +1,59 @@
+<div class="main-container" style="display: flex;">
+    <section>
+        <span class="profile-head">Employee Profile</span><br><br><br>
+        <table width="50%" cellspacing="0" class="table-class">
+            <br>
+            <!-- <thead>
+            <th width="700"></th>
+            </thead> -->
+            <tbody>
+            <tr>
+                <td>Name</td>
+                <td>{{employee.employeeName}}</td>
+            </tr>
+            <!-- <tr>
+                <td>Role</td>
+                <td>{{employee.role}}</td>
+            </tr> -->
+            <tr>
+                <td>Email-id</td>
+                <td>{{employee.emailId}}</td>
+            </tr>
+            <tr *ngIf="employee.managerEmailId">
+                <td>Manager's Email-id</td>
+                <td>{{employee.managerEmailId}}</td>
+            </tr>
+            <tr>
+                <td>Upload Profile Photo</td>
+            </tr>
+            <tr>
+                <td>
+                    <form [formGroup]="uploadForm" (ngSubmit)="onSubmit()">
+                        <div>
+                            <!-- <label for="file">Profile picture </label> -->
+                            <input type="file" accept="image/*" name="file" (change)="onFileSelect($event)" />
+                            <button type="submit" class="btn btn-primary">Upload</button>
+                        </div>
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>     
+    </section>   
+    <section>
+        <aside class="profile-card">
+            <header>
+                <a>
+                    <img *ngIf="!employee.profileImage" src="../../../assets/noProfileImage.jpg" class="hoverZoomLink">
+                    <img *ngIf="employee.profileImage" src="data:image/jpeg;base64,{{employee.profileImage}}" class="hoverZoomLink">
+                </a>
+                <h1>{{employee.employeeName}}</h1>
+                <h2>Thank you!</h2>
+            </header>
+            <div class="profile-bio">
+               <p>Clients do not come first. Employees come first. If you take care of your employees, they will take care of the clients.</p>
+            </div>
+        </aside>    
+    </section> 
+</div>
+

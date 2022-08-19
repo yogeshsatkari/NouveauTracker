@@ -1,0 +1,25 @@
+.container{
+    width:1200px;
+    height: fit-content;
+    overflow-y: scroll;
+
+}
+mat-grid-tile{
+    font-weight: bold;
+    border: 1px solid black;
+    border-radius: 5px;
+    filter:grayscale(0 0 10px);
+    
+}
+.fullDayLeave{
+    background-color: pink;
+    opacity: 0.5;
+}
+.halfDayLeave{
+    background-color: gold;
+    opacity: 0.5;
+}
+h3{
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    margin-top: 10px;
+}

@@ -1,0 +1,182 @@
+<div mat-dialog-title class="flex-container">
+  <h1 mat-dialog-title>Create New Program</h1>
+  <span class="example-spacer"></span>
+  <mat-icon [mat-dialog-close]="true" matTooltip="Close">close</mat-icon>
+</div>
+
+<mat-dialog-content>
+  <form class="example-form" [formGroup]="addProgramForm">
+    <div fxLayout="column" fxFlex="100%">
+      <div fxLayout="row" fxLayoutGap="2%" fxLayout.xs="column">
+        <mat-form-field
+          class="example-full-width"
+          fxFlex="50%"
+          appearance="outline"
+        >
+          <mat-label>Program Name</mat-label>
+          <input
+            matInput
+            #programName
+            formControlName="programName"
+            maxlength="20"
+            required
+          />
+          <mat-hint align="end"
+            >{{ programName.value?.length || 0 }}/20</mat-hint
+          >
+        </mat-form-field>
+        <mat-form-field
+          class="example-full-width"
+          fxFlex="50%"
+          appearance="outline"
+        >
+          <mat-label>Program Type</mat-label>
+          <mat-select formControlName="programType" required>
+            <mat-option *ngFor="let type of programType" [value]="type">{{
+              type
+            }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div fxLayout="row" fxLayoutGap="2%" fxLayout.xs="column">
+        <mat-form-field
+          class="example-full-width"
+          appearance="outline"
+          fxFlex="50%"
+        >
+          <mat-label>Organization Name</mat-label>
+          <input
+            matInput
+            formControlName="organizationName"
+            #organizationName
+            maxlength="15"
+            required
+          />
+          <mat-hint align="end"
+            >{{ organizationName.value?.length || 0 }}/15</mat-hint
+          >
+        </mat-form-field>
+
+        <div fxFlex="50%">
+          <label>Organization Logo </label>
+          <br />
+          <input
+            type="file"
+            accept="image/*"
+            formControlName="image"
+            (change)="onFileUpload($event)"
+            required
+          />
+        </div>
+      </div>
+      <div fxLayout="row" fxLayoutGap="2%" fxLayout.xs="column">
+        <mat-form-field
+          class="example-full-width"
+          appearance="outline"
+          fxFlex="50%"
+        >
+          <mat-label>Manager Email Id</mat-label>
+          <mat-select formControlName="managerEmailId" required>
+            <mat-option
+              *ngFor="let manager of managersArray"
+              [value]="manager"
+              >{{ manager }}</mat-option
+            >
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field
+          class="example-full-width"
+          appearance="outline"
+          fxFlex="50%"
+        >
+          <mat-label>Enter Date Range for Program</mat-label>
+          <mat-date-range-input [rangePicker]="picker">
+            <input
+              matStartDate
+              placeholder="Start date"
+              formControlName="startDate"
+              required
+            />
+            <input
+              matEndDate
+              placeholder="End date"
+              formControlName="endDate"
+              required
+            />
+          </mat-date-range-input>
+          <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="picker"
+          ></mat-datepicker-toggle>
+          <mat-date-range-picker #picker></mat-date-range-picker>
+        </mat-form-field>
+      </div>
+      <div fxLayout="row" fxLayoutGap="2%" fxLayout.xs="column">
+        <mat-form-field
+          class="example-full-width"
+          appearance="outline"
+          fxFlex="50%"
+        >
+          <mat-label>Daily Start Time</mat-label>
+          <input type="time" matInput formControlName="startTime" required />
+          <mat-icon matSuffix>alarm</mat-icon>
+        </mat-form-field>
+        <mat-form-field
+          class="example-full-width"
+          appearance="outline"
+          fxFlex="50%"
+        >
+          <mat-label>Daily End Time</mat-label>
+          <input type="time" matInput formControlName="endTime" required />
+          <mat-icon matSuffix>alarm</mat-icon>
+        </mat-form-field>
+      </div>
+      <div fxLayout="row" fxLayoutGap="2%" fxLayout.xs="column">
+        <mat-form-field
+          class="example-full-width"
+          appearance="outline"
+          fxFlex="33%"
+        >
+          <mat-label>Customer Code</mat-label>
+          <input matInput formControlName="customerId" required type="number" />
+        </mat-form-field>
+        <mat-form-field
+          class="example-full-width"
+          appearance="outline"
+          fxFlex="33%"
+          required
+        >
+          <mat-label>Cost Code</mat-label>
+          <input matInput formControlName="costCode" required type="number" />
+        </mat-form-field>
+        <mat-form-field
+          class="example-full-width"
+          appearance="outline"
+          fxFlex="33%"
+        >
+          <mat-label>Program Code</mat-label>
+          <input
+            matInput
+            formControlName="programCode"
+            required
+            type="number"
+          />
+        </mat-form-field>
+      </div>
+    </div>
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button (click)="addProgramForm.reset()" mat-raised-button>Reset</button>
+  <button
+    (click)="saveProgram()"
+    [mat-dialog-close]="true"
+    [disabled]="!addProgramForm.valid"
+    color="primary"
+    mat-flat-button
+  >
+    Create
+  </button>
+</mat-dialog-actions>

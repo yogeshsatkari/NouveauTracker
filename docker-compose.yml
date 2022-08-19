@@ -1,0 +1,185 @@
+version: "3.3"
+services:
+  rabbitmq:
+    image: rabbitmq:3.7.5-management
+    container_name: rabbitmq-container
+    hostname: localhost
+    restart: always
+    network_mode: "host"
+    environment:
+      RABBITMQ_DEFAULT_USER: guest
+      RABBITMQ_DEFAULT_PASS: guest
+      RABBITMQ_DEFAULT_VHOST:
+    ports:
+      - 5672:5672
+      - 15672:15672
+
+  mysqlservice:
+    image: mysql:latest
+    container_name: mysql-container
+    restart: always
+    hostname: localhost
+    network_mode: "host"
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: 'password'
+      MYSQL_USERNAME: root
+      MYSQL_PASSWORD: root
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+
+  mongodbservice:
+    image: mongo:latest
+    container_name: mongo-container
+    hostname: localhost
+    network_mode: "host"
+    ports:
+      - 27017:27017
+
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.15.0
+    container_name: elasticsearch
+    hostname: localhost
+    network_mode: "host"
+    environment:
+      - node.name=elasticsearch
+      - cluster.name=elasticsearch
+      - discovery.type=single-node
+      - bootstrap.memory_lock=true
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    ports:
+      - 9200:9200
+      - 9300:9300
+
+  prometheus:
+    container_name: prom
+    image: prom/prometheus
+    restart: always
+    hostname: localhost
+    network_mode: "host"
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+    ports:
+      - 9090:9090
+
+  grafana:
+    container_name: graf
+    image: grafana/grafana
+    restart: always
+    hostname: localhost
+    network_mode: "host"
+    ports:
+      - 3000:3000
+
+  eureka-server:
+    build: eureka-server/
+    container_name: eureka-server
+    restart: always
+    hostname: localhost
+    network_mode: "host"
+    ports:
+      - 8761:8761
+
+  config-server:
+    build: config-server/
+    container_name: config-server
+    restart: always
+    hostname: localhost
+    network_mode: "host"
+    ports:
+      - 8888:8888
+
+  api-gateway:
+    build: api-gateway/
+    container_name: api-gateway
+    depends_on:
+      - eureka-server
+    restart: always
+    hostname: localhost
+    network_mode: "host"
+    ports:
+      - 8080:8080
+
+  email-service:
+    container_name: email-service
+    build: email-service/
+    hostname: localhost
+    network_mode: "host"
+    ports:
+      - 8087:8087
+    depends_on:
+      - eureka-server
+    restart: always
+
+  authentication-service:
+    container_name: authentication-service
+    build: authentication-service/
+    hostname: localhost
+    network_mode: "host"
+    ports:
+      - 8085:8085
+    restart: always
+    depends_on:
+      - mysqlservice
+      - eureka-server
+      - rabbitmq
+
+  employee-service:
+    container_name: employee-service
+    build: employee-service/
+    hostname: localhost
+    network_mode: "host"
+    ports:
+      - 8086:8086
+    restart: always
+    depends_on:
+      - mongodbservice
+      - rabbitmq
+      - eureka-server
+
+  program-service:
+    container_name: program-service
+    build: program-service/
+    hostname: localhost
+    network_mode: "host"
+    ports:
+      - 8081:8081
+    restart: always
+    depends_on:
+      - mongodbservice
+      - eureka-server
+
+  time-tracker-service:
+    container_name: time-tracker-service
+    build: time-tracker-service/
+    hostname: localhost
+    network_mode: "host"
+    ports:
+      - 8082:8082
+    restart: always
+    depends_on:
+      - elasticsearch
+      - eureka-server
+
+  monthly-tracker-service:
+    container_name: monthly-tracker-service
+    build: monthly-tracker-service/
+    hostname: localhost
+    network_mode: "host"
+    ports:
+      - 9000:9000
+    restart: always
+    depends_on:
+      - elasticsearch
+      - eureka-server
+
+
+  product-webapp:
+    build: product-webapp/
+    image: product-webapp
+    restart: always
+    container_name: product-webapp
+    network_mode: "host"
+    hostname: localhost
+    ports:
+      - "4200:4200"

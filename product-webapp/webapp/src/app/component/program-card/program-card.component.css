@@ -1,0 +1,61 @@
+mat-card-header {
+  justify-content: center;
+}
+
+mat-card-title {
+  color: #2c3855;
+  letter-spacing: 1px;
+}
+mat-card-subtitle {
+  letter-spacing: 2px;
+  margin-bottom: 10px;
+}
+
+.example-card {
+  margin: 12px;
+  margin-left: 30px;
+  margin-right: 20px;
+  width: 270px;
+  height: 220px;
+  text-align: center;
+  border-radius: 10px !important;
+}
+
+.active-program {
+  border-top: 5px solid #118005;
+}
+
+.inactive-program {
+  border-top: 5px solid red;
+}
+
+img {
+  object-fit: fill;
+  width: 60%;
+  height: 50%;
+  margin: 10px !important;
+}
+
+mat-card:hover {
+  box-shadow: 0rem 0.2rem 0.3rem rgba(91, 103, 131, 0.5);
+  cursor: pointer;
+}
+
+mat-card-actions {
+  margin: 0 !important;
+}
+
+mat-icon {
+  float: right;
+  font-size: 25px !important;
+  padding: 6px 14px;
+  border-radius: 5px;
+  color: #5b6783;
+}
+
+mat-icon:hover {
+  color: white;
+  background-color: #5b6783;
+  transition: 0.4s;
+  box-shadow: 0rem 0.3rem 0.4rem rgba(225, 230, 246, 0.5);
+}

@@ -1,0 +1,35 @@
+<div class="spinner" *ngIf="showSpinner">
+    <mat-progress-spinner
+  [mode]="'indeterminate'">
+  </mat-progress-spinner>   
+  </div>
+  
+<div class="dialog">
+    <h2 mat-dialog-title>
+        Revert Monthly Tracker
+        
+    </h2>
+    <mat-dialog-content class="mat-typography">
+        <p>
+            <mat-form-field appearance="outline" class="email">
+              <mat-label>Email</mat-label>
+              <input matInput placeholder="Email" disabled [value]="emailId">
+              <mat-icon matSuffix>mail</mat-icon>
+            </mat-form-field>
+        </p>
+        <form (ngSubmit)="onSubmit(form)" #form="ngForm">
+        <mat-icon class="mail">outgoing_mail</mat-icon>
+        <p>
+            <mat-form-field appearance="outline"  class="remarks" class="remarks">
+                <mat-label>Remarks /Body</mat-label>
+                <textarea matInput name="remarks" ngModel></textarea>
+            </mat-form-field>
+        </p>
+        <button mat-flat-button color="primary" type="submit" class="send" cdkFocusInitial>
+            <mat-icon>send</mat-icon>
+                Send Mail
+            </button>
+        </form>
+    
+    </mat-dialog-content>
+</div>

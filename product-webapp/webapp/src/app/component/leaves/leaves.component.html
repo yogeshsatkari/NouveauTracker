@@ -1,0 +1,14 @@
+<div class="container">
+    <h3>Full Day Leaves </h3>
+    <mat-grid-list cols="12" rowHeight="1:1">
+        
+        <mat-grid-tile *ngFor="let date of fullDayList" class="fullDayLeave">{{date | date:'EEEE, MMMM d,y'}}</mat-grid-tile> 
+      
+      </mat-grid-list> 
+    
+      <h3>Half Day Leaves</h3>
+      <mat-grid-list cols="12" rowHeight="1:1" >
+          
+          <mat-grid-tile *ngFor="let date of halfDayList" class="halfDayLeave">{{date | date:'EEEE, MMMM d,y'}}</mat-grid-tile> 
+        </mat-grid-list> 
+</div>

@@ -1,0 +1,29 @@
+@import url("../../../../node_modules\bootstrap\dist\css\bootstrap.min.css");
+
+.container {
+  height: calc(100vh - 56px);
+  background-color: #f8f8fb;
+  padding: 15px;
+} 
+.secondary-container {
+  position: absolute;
+  height: 55%;
+  width: 68vw;
+  padding: 50px;
+}
+.chart-div {
+  height: 9vh;
+}
+.title {
+font-weight: 500;
+color: #444;
+font-size: 40px;
+padding-bottom: 5px;
+}
+
+
+a:hover, a:focus{
+  color: #171E2F !important;
+  text-decoration:wavy !important;
+  outline: none !important;
+}

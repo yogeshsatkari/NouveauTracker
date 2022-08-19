@@ -1,0 +1,128 @@
+<mat-icon class="close highlightOnHover" (click)="closeDialogue()">close</mat-icon>
+<div class="container" id="container-box" #container>
+    <div class="header" mat-dialog-title>
+        <div class="flex-header">
+            <!-- <mat-icon class="highlightOnHover">keyboard_arrow_left</mat-icon>
+            <mat-icon class="highlightOnHover">keyboard_arrow_right</mat-icon> -->
+            <mat-icon style="font-size:30px;margin-right: 15px;">calendar_today</mat-icon>
+            <span style="font-size:30px">{{_data.date.toDateString()}}</span>
+        </div>
+    </div>
+    <!-- <div id="half-day">
+        <mat-slide-toggle [(ngModel)]="isChecked" (toggleChange)="updateLeaveStatus()">HalfDayLeave: {{hdStatus}}
+        </mat-slide-toggle>
+    </div> -->
+    <div class="flex-center">
+        <label id="example-radio-group-label" class="font-verdana">Leave </label>
+        <mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group"
+            [(ngModel)]="leaveApplied">
+            <mat-radio-button class="example-radio-button" *ngFor="let leave of leaves" [value]="leave" class="font-verdana padding-left-20px" color="primary">
+                {{leave}}
+            </mat-radio-button>
+        </mat-radio-group>
+        
+    </div>
+
+
+    <div id="DailyTrackerForm" [formGroup]="dailyTracker">
+        <h2 [hidden]="projectLogArray.length<1">PROJECTS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="badge bg-success">Active</span></h2>
+        <div class="table-container">
+            <table class="table table-striped" [hidden]="projectLogArray.length<1">
+                <thead>
+                    <tr class="logrow">
+                        <th scope="col"></th>
+                        <th scope="col">Project Name</th>
+                        <th scope="col">Start Date</th>
+                        <th scope="col">
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        </th>
+                        <th scope="col" class="padding-left-20px">Hours</th>
+                    </tr>
+                </thead>
+                <tbody formArrayName="projTimeLogs">
+                    <tr *ngFor="let project of projTimeLogsArray.controls;let i=index">
+                        <th scope="row">
+                            <ngx-avatar name={{projectLogArray[i].taskName}} [round]="true" size="40"></ngx-avatar>
+                        </th>
+                        <td>{{projectLogArray[i].taskName}}</td>
+                        <td>{{projectLogArray[i].startDate | date:"dd/MM/yyyy"}}</td>
+                        <td></td>
+                        <td> <input matInput placeholder="Log hrs" type="number" [formControlName]="i" class="loghour" min="0" max="8">
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <h2 [hidden]="programLogArray.length<1">Programmes&nbsp;&nbsp;&nbsp;&nbsp;<span class="badge bg-success">Active</span></h2>
+        <div class="table-container">
+            <table class="table table-striped" [hidden]="programLogArray.length<1">
+                <thead>
+                    <tr>
+                        <th scope="col"></th>
+                        <th scope="col">Program Name</th>
+                        <th scope="col">Start Date</th>
+                        <th scope="col">
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        </th>
+                        <th scope="col" class="padding-left-20px">Hours</th>
+                    </tr>
+                </thead>
+                <tbody formArrayName="progTimeLogs">
+                    <tr *ngFor="let project of progTimeLogsArray.controls;let i=index">
+                        <th scope="row">
+                            <ngx-avatar name={{programLogArray[i].taskName}} size="40"></ngx-avatar>
+                        </th>
+                        <td>{{programLogArray[i]?.taskName}}</td>
+                        <td>{{programLogArray[i]?.startDate| date:"dd/MM/yyyy"}}</td>
+                        <td></td>
+                        <td> <input matInput placeholder="Log hrs" type="number" [formControlName]="i" class="loghour" min="0" max="8">
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <h2>SelfLearning</h2>
+        <div class="table-container">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col"></th>
+                        <th scope="col"></th>
+                        <th scope="col"></th>
+                        <th scope="col"></th>
+                        <th scope="col" class="padding-left-30px">Hours</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr >
+                        <th scope="row">
+                            <ngx-avatar name="Self Learning" size="40"></ngx-avatar>
+                        </th>
+                        <td>Self-Learning</td>
+                        <td><input matInput placeholder="What did you learn" value="0" type="text"
+                                formControlName="slDetails" class="SLDetails" disabled="isFulldayApplied()"></td>
+                        <td></td>
+                        <td> <input matInput placeholder="Log hrs" value="0" type="number" formControlName="slHours"
+                                class="loghour" min="0" max="8"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="example-form-remarks">
+            <mat-form-field class="example-full-width-remarks" appearance="fill">
+                <mat-label>Remarks</mat-label>
+                <input matInput #message maxlength="256" placeholder="Any additional information for the day."
+                    formControlName="remarks" >
+                <mat-hint align="start"><strong>*Not Mandatory</strong> </mat-hint>
+                <mat-hint align="end">{{message.value.length}} / 256</mat-hint>
+            </mat-form-field>
+        </div>
+
+    </div>
+    <button id="save" mat-raised-button (click)="submitDailyTracker(alert,container)" color="primary" >SAVE</button>
+    <div class="alert alert-dark" role="alert" #alert  >
+        {{logMsg}}
+    </div>
+
+</div>

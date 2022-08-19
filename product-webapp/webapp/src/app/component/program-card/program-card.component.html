@@ -1,0 +1,25 @@
+<mat-card
+  class="example-card"
+  [ngClass]="{
+    'active-program': programData?.programStatus === 'ACTIVE',
+    'inactive-program': programData?.programStatus === 'INACTIVE'
+  }"
+  programData
+  (click)="showProgramDetails(programData?.programName)"
+>
+  <img mat-card-image [src]="imageURL" [alt]="programData?.organizationName" />
+  <mat-card-header>
+    <mat-card-title>{{ programData?.programName }} </mat-card-title>
+    <mat-card-subtitle>{{ programData?.organizationName }}</mat-card-subtitle>
+  </mat-card-header>
+
+  <mat-card-content>
+    <mat-icon
+      inline="true"
+      (click)="addProgramMembers($event, programData?.programName)"
+      *ngIf="role === 'MANAGER'"
+    >
+      group_add</mat-icon
+    >
+  </mat-card-content>
+</mat-card>

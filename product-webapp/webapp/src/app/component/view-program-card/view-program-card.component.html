@@ -1,0 +1,61 @@
+<div programDetails>
+  <div mat-dialog-title class="flex-container">
+    <h1 mat-dialog-title>{{ programDetails?.programName }}</h1>
+    <span class="example-spacer"></span>
+    <mat-icon [mat-dialog-close]="true" matTooltip="Close">close</mat-icon>
+  </div>
+
+  <mat-dialog-content class="mat-typography">
+    <div fxLayout="row" fxLayoutGap="2%" fxLayout.xs="column">
+      <mat-icon>domain</mat-icon>
+      <h3 fxFlex="50%" matTooltip="Organization Name">
+        {{ programDetails?.organizationName }}
+      </h3>
+      <mat-icon>task</mat-icon>
+      <h3 fxFlex="50%" matTooltip="Program Type">
+        {{ programDetails?.programType }}
+      </h3>
+    </div>
+
+    <div fxLayout="row" fxLayoutGap="2%" fxLayout.xs="column">
+      <mat-icon>calendar_today</mat-icon>
+      <h3 fxFlex="50%" matTooltip="Program Duration">
+        {{ programDetails?.startDate | date: "dd/MM/yyyy" }} -
+        {{ programDetails?.endDate | date: "dd/MM/yyyy" }}
+      </h3>
+      <mat-icon>person</mat-icon>
+      <h3 fxFlex="50%" matTooltip="Manager's Email Id">
+        {{ programDetails?.managerEmailId }}
+      </h3>
+    </div>
+
+    <div fxLayout="column">
+      <div>
+        <mat-icon>group</mat-icon>
+      </div>
+
+      <mat-form-field class="example-chip-list" appearance="outline">
+        <mat-label>Members</mat-label>
+        <h1 *ngIf="programDetails?.membersList == null">No Members to show.</h1>
+        <mat-chip-list *ngIf="programDetails?.membersList.length > 0" #chipList>
+          <mat-chip
+            *ngFor="let member of programDetails?.membersList"
+            (removed)="
+              remove(programDetails?.programName, member.memberEmailId)
+            "
+          >
+            {{ member.memberEmailId }}
+
+            <mat-icon
+              *ngIf="role === 'MANAGER'"
+              [mat-dialog-close]="true"
+              matTooltip="Remove member"
+              matChipRemove
+              >cancel</mat-icon
+            >
+          </mat-chip>
+        </mat-chip-list>
+      </mat-form-field>
+    </div>
+  </mat-dialog-content>
+</div>

@@ -1,0 +1,17 @@
+h1 {
+  font-weight: 500;
+  color: #5b6783;
+}
+
+mat-icon {
+  color: #5b6783;
+  cursor: pointer;
+}
+
+.flex-container {
+  display: flex;
+}
+
+.example-spacer {
+  flex: 1 1 auto;
+}

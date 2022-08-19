@@ -1,0 +1,29 @@
+
+.subject{
+    width:400px;    
+}
+.body{
+    width:400px;
+}
+.remarks{
+    width:400px
+}
+.email{
+    width: 400px;
+}
+.send{
+    width: 400px;
+}
+.mat-typography{
+    text-align: center; 
+}
+.mail{
+    transform: scale(2);
+}
+.spinner{
+    position: absolute;
+    left: 50%;
+    top:50%;
+    transform:scale(1.2);
+    z-index: 10;
+  }

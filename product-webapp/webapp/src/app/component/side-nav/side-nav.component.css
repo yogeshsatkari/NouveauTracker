@@ -1,0 +1,96 @@
+.sidenav {
+    background-image: linear-gradient(115deg,#2C3855 100%,#171E2F 100%); 
+    height: 100%;
+    width: 230px; 
+    display: block;
+    box-shadow: 0 0 45px 0 #2C3855(0, 0, 0, .6);
+    margin-right: 0px;
+    border-radius: 0px;
+    transition: .5x, cubic-bezier(.685,.0473,.346,1);
+}
+.logo {
+    position: relative;
+    padding: 1rem 0.6rem;  
+    z-index: 4;
+}
+.logo a.logo-mini {
+    opacity: 1;
+    float: left;
+    width: 34px;
+    text-align: center;
+    margin-left: 10px;
+    margin-right: 12px;
+}
+.logo a.logo-normal {
+    display: block;
+    opacity: 1;
+    -webkit-transform: translate3d(0px, 0, 0);
+    -moz-transform:  translate3d(0px, 0, 0);
+    -o-transform:  translate3d(0px, 0, 0);
+    -ms-transform:  translate3d(0px, 0, 0);
+    transform:  translate3d(0px, 0, 0);
+}
+
+.logo::after {
+    content:'';
+    position: absolute;
+    bottom: 0;
+    right: 15px;
+    height: 1px;
+    width: calc(100% -30%);
+    background:rgb(255,255,255,0.5);
+}
+.logo .simple-text {
+    text-transform: uppercase;
+    padding-inline-start: 0.5rem 0;
+    display: block;
+    white-space: nowrap;
+    color: #fff;
+    text-decoration: none;
+    font-weight: 400;
+    font-size: larger;
+    line-height: 30px;
+    /* overflow: hidden; */
+}
+.logo-img img {
+    width: 38px;
+    margin-left: 200%;
+    /* border-radius: 20%; */
+}
+.nav li>a {
+    margin: 10px 15px 0;
+    border-radius: 30px;
+    color: rgb(255,255,255,0.8);
+    width: 200px;
+    display: block;
+    text-decoration: none;
+    text-transform: uppercase;
+    position: relative;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: 300;
+    padding: 10px 15px;
+    line-height: 1.5rem;
+    transition: all .3s ease 0s;
+}
+.nav li>a i {
+    width: 20px;
+    margin-right: 10px;
+    font-size: 1.125rem;
+} 
+.nav li>a:hover, .nav li>a:hover i {
+    color: rgba(255, 255, 255, 2);
+    transition: all .3s ease 0s;
+    background-color: #3a496b;
+}
+.nav li.active>a:before {
+    content: " ";
+    position: absolute;
+    height: 5px;
+    width: 5px;
+    top: 17px;
+    left: -2px;
+    background-color: #fff;
+    border-radius: 50%;
+    
+}

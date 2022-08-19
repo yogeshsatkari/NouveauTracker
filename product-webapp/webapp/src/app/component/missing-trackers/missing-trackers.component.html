@@ -1,0 +1,35 @@
+<div class="container">
+  <div id="inner-container">
+    <div id="first">
+      <h2 [hidden]="missingCount<1">Missing Daily Trackers!!</h2>
+      <div id="head">
+        <h4 id="count" [hidden]="missingCount<1">{{missingCount}} </h4>
+        <h4 [hidden]="missingCount<1">Daily Trackers Not Filled</h4>
+      </div>
+      <table class="table table-danger table-striped table-hover" [hidden]="missingCount<1">
+        <tbody>
+          <tr *ngFor="let day of missingDayList">
+            <td>{{day}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div id="second">
+      <h2 [hidden]="incompleteCount<1">Incomplete Daily Trackers!!</h2>
+      <div id="head">
+        <h4 id="count" [hidden]="incompleteCount<1">{{incompleteCount}} </h4>
+        <h4 [hidden]="incompleteCount<1">Daily Tracker Hours Incomplete</h4>
+      </div>
+      <table class="table table-warning table-striped table-hover" [hidden]="incompleteCount<1">
+        <tbody>
+          <tr *ngFor="let day of incompleteDayList">
+            <td>{{day}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <h1 [hidden]="incompleteCount>0 || missingCount>0">All Logs Complete!!</h1>
+  <h1 [hidden]="incompleteCount>0 || missingCount>0">Monthly Tracker Submitted!!</h1>
+
+</div>

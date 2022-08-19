@@ -1,0 +1,17 @@
+<div class="canvas">
+  <div class="overview">
+   <div>Employee: {{email}}</div>
+   <div>Month: July</div>
+   <div>Year : 2022</div>
+  </div>
+   <div class="main">
+     <div class="date" (click)="openDialog(item)" *ngFor="let item of dailyTrackers">
+       <h2>  {{getDateString(item).slice(4,7)}}</h2>
+       <div class="number" >
+         {{getDateString(item).slice(8,10)}}
+       </div>
+     </div>
+ 
+   </div>
+ </div>
+ 

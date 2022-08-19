@@ -1,0 +1,32 @@
+<div class="dialog">
+  <mat-icon class="close" (click)="close()" >close</mat-icon>
+  <h2 mat-dialog-title>Daily Tracker</h2>
+  <span class="date">{{getDateString(this.dailyTracker)}}</span>
+<br>
+<br>
+<div *ngIf="projects.length>0">
+  <h3> <mat-icon class="mat-18">web_asset</mat-icon> Projects</h3>
+  <hr>
+  <div class="list" *ngFor="let project of projects">
+    <div><b>{{project.name}}</b></div> <div class="hrs">{{project.hours}} hrs</div>
+  </div>
+</div>
+<br *ngIf="projects.length>0">
+<br *ngIf="projects.length>0">
+<div *ngIf="programs.length>0">
+  <h3> <mat-icon class="mat-18">cast_for_education</mat-icon> Programs</h3>
+<hr>
+<div class="list" *ngFor="let program of programs">
+  <div><b>{{program.name}}</b></div> <div class="hrs">{{program.hours}} hrs</div>
+</div>
+</div>
+<br *ngIf="programs.length>0">
+<br *ngIf="programs.length>0">
+<div *ngIf="selflearnings.length>0">
+  <h3> <mat-icon class="mat-18">menu_book</mat-icon> Self Learning</h3>
+<hr>
+<div class="list" *ngFor="let selflearning of selflearnings">
+  <div><b>{{selflearning.name}}</b></div> <div class="hrs">{{selflearning.hours}} hrs</div>
+</div>
+</div>
+</div>

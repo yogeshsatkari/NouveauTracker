@@ -1,0 +1,408 @@
+<div class="spinner" *ngIf="showSpinner">
+  <mat-progress-spinner [mode]="'indeterminate'"> </mat-progress-spinner>
+</div>
+
+<div class="background">
+  <!-- Overview -->
+  <div class="overview">
+    <span class="side-header">OVERVIEW</span>
+    <br /><br />
+    <div class="side-info">
+      No.of Monthly Trackers
+      <br />
+      <h1>{{ records }}</h1>
+    </div>
+    &nbsp; &nbsp;
+    <div class="side-info">
+      Month
+      <br />
+      <h1>{{ month }}</h1>
+    </div>
+    &nbsp; &nbsp;
+    <div class="side-info">
+      Year
+      <br />
+      <h1>{{ year }}</h1>
+    </div>
+    <br />
+    <div class="side-sub-info" *ngIf="startDate !== null">
+      Start Date
+      <br />
+      <h1>{{ startDate | date: "dd MMM yyyy" }}</h1>
+    </div>
+    &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+    <div class="side-sub-info" *ngIf="endDate !== null">
+      End Date
+      <br />
+      <h1>{{ endDate | date: "dd MMM yyyy" }}</h1>
+    </div>
+  </div>
+
+  <!-- Title  -->
+  <div class="title">&nbsp; &nbsp; MONTHLY TRACKER</div>
+  <br />
+  <!-- Filter -->
+  <div class="filter">
+    <span class="side-header">Filter</span>
+    <br />
+    <br />
+    <mat-form-field appearance="outline">
+      <mat-label>Month</mat-label>
+      <mat-select
+        [(value)]="thisMonth"
+        [formControl]="monthFilter"
+        (selectionChange)="updateRecords()"
+      >
+        <mat-option>None</mat-option>
+        <mat-option *ngFor="let month of allmonths" [value]="month">
+          {{ month }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    &nbsp;
+    <mat-form-field appearance="outline">
+      <mat-label>Year</mat-label>
+      <input
+        matInput
+        type="number"
+        placeholder="Year"
+        (input)="updateRecords()"
+        [formControl]="yearFilter"
+        min="2000"
+        [max]="thisYear"
+      />
+      <mat-error *ngIf="yearFilter.invalid">"Enter a Valid Year</mat-error>
+    </mat-form-field>
+  </div>
+
+  <!-- Tabs -->
+
+  <mat-tab-group
+    animationDuration="0ms"
+    #tabGroup
+    (selectedTabChange)="tabChanged($event)"
+  >
+    <!-- All Records -->
+    <mat-tab>
+      <ng-template mat-tab-label>
+        All &nbsp;
+        <a mat-mini-fab color="primary">
+          <mat-icon class="mat-18">all_inclusive</mat-icon>
+        </a>
+      </ng-template>
+      <!-- Data -->
+      <div
+        class="list"
+        *ngIf="allTrackers.length > 0 || showSpinner; else noAllTrackers"
+      >
+        <mat-card class="heading">
+          <div>EMPLOYEE EMAIL</div>
+          <div>STATUS</div>
+          <div>REMARKS</div>
+          <div>ACTION</div>
+          <div></div>
+        </mat-card>
+        <mat-card class="data" *ngFor="let tracker of allTrackers">
+          <div class="record">
+            <mat-icon class="mat-18" [style.color]="'#d27a4f'">mail</mat-icon>
+            {{ tracker.employeeEmail }}
+          </div>
+          <div>
+            <mat-icon
+              [style.color]="
+                tracker.status == 'COMPLETED'
+                  ? '#8cc73c'
+                  : tracker.status == 'REVERTED'
+                  ? '#f66178'
+                  : '#f2b551'
+              "
+              >fiber_manual_record</mat-icon
+            >
+            {{ tracker.status.toUpperCase() }}
+          </div>
+          <div>{{ tracker.remarks }}</div>
+          <div [style.textAlign]="left">
+            <span *ngIf="tracker.status == 'SUBMITTED'">
+              &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+            </span>
+            <button
+              mat-mini-fab
+              matTooltip="Approve"
+              [style.backgroundColor]="'#8cc73c'"
+              *ngIf="tracker.status == 'SUBMITTED'"
+            >
+              <mat-icon (click)="approve(tracker)" class="mat-18"
+                >done_outline</mat-icon
+              >
+            </button>
+            &nbsp;
+            <button
+              mat-mini-fab
+              matTooltip="Revert"
+              (click)="revert(tracker)"
+              [style.backgroundColor]="'#f66178'"
+              *ngIf="tracker.status == 'SUBMITTED'"
+            >
+              <mat-icon class="mat-18">north_east</mat-icon>
+            </button>
+            <button
+              mat-flat-button
+              disabled
+              class="no-action"
+              *ngIf="
+                tracker.status == 'COMPLETED' || tracker.status == 'REVERTED'
+              "
+              [style.color]="'#55557b'"
+            >
+              <strong>No Action Allowed</strong>
+            </button>
+          </div>
+          <div>
+            <button
+              mat-stroked-button
+              class="view-details"
+              (click)="viewDetails(tracker)"
+              color="primary"
+            >
+              View Details
+            </button>
+          </div>
+        </mat-card>
+      </div>
+      <ng-template #noAllTrackers>
+        <div class="not-available">
+          <img
+            class="oops"
+            src="assets/images/minion-oops.png"
+            alt=""
+            srcset=""
+          />
+          Oops! No Available Trackers as of Now!
+        </div>
+      </ng-template>
+    </mat-tab>
+
+    <!-- SUBMITTED Records -->
+    <mat-tab>
+      <ng-template mat-tab-label>
+        SUBMITTED &nbsp;
+        <a mat-mini-fab [style.backgroundColor]="'#f2b551'">
+          <mat-icon class="mat-18">checklist</mat-icon>
+        </a>
+      </ng-template>
+      <!-- Data -->
+      <div
+        class="list"
+        *ngIf="
+          submittedTrackers.length > 0 || showSpinner;
+          else noSubmittedTrackers
+        "
+      >
+        <mat-card class="heading">
+          <div>EMPLOYEE EMAIL</div>
+          <div>STATUS</div>
+          <div>REMARKS</div>
+          <div>ACTION</div>
+          <div></div>
+        </mat-card>
+        <mat-card class="data" *ngFor="let tracker of submittedTrackers">
+          <div>
+            <mat-icon class="mat-18" [style.color]="'#d27a4f'">mail</mat-icon>
+            {{ tracker.employeeEmail }}
+          </div>
+          <div>
+            <mat-icon
+              [style.color]="
+                tracker.status == 'COMPLETED'
+                  ? '#8cc73c'
+                  : tracker.status == 'REVERTED'
+                  ? '#f66178'
+                  : '#f2b551'
+              "
+              >fiber_manual_record</mat-icon
+            >
+            {{ tracker.status.toUpperCase() }}
+          </div>
+          <div>{{ tracker.remarks }}</div>
+          <div [style.textAlign]="left">
+            <span *ngIf="tracker.status == 'SUBMITTED'"> </span>
+            <button
+              mat-mini-fab
+              matTooltip="Approve"
+              (click)="approve(tracker)"
+              [style.backgroundColor]="'#8cc73c'"
+              *ngIf="tracker.status == 'SUBMITTED'"
+            >
+              <mat-icon class="mat-18">done_outline</mat-icon>
+            </button>
+            &nbsp;
+            <button
+              mat-mini-fab
+              matTooltip="Revert"
+              (click)="revert(tracker)"
+              [style.backgroundColor]="'#f66178'"
+              *ngIf="tracker.status == 'SUBMITTED'"
+            >
+              <mat-icon class="mat-18">north_east</mat-icon>
+            </button>
+          </div>
+          <div>
+            <button
+              mat-stroked-button
+              class="view-details"
+              (click)="viewDetails(tracker)"
+              color="primary"
+            >
+              View Details
+            </button>
+          </div>
+        </mat-card>
+      </div>
+      <ng-template #noSubmittedTrackers>
+        <div class="not-available">
+          <img
+            class="oops"
+            src="assets/images/minion-oops.png"
+            alt=""
+            srcset=""
+          />
+          Oops! No Available Trackers as of Now!
+        </div>
+      </ng-template>
+    </mat-tab>
+
+    <!-- Approved Records -->
+    <mat-tab>
+      <ng-template mat-tab-label>
+        Approved &nbsp;
+        <a mat-mini-fab [style.backgroundColor]="'#8cc73c'">
+          <mat-icon class="mat-18">done_outline</mat-icon>
+        </a>
+      </ng-template>
+      <!-- Data -->
+      <div
+        class="list"
+        *ngIf="
+          approvedTrackers.length > 0 || showSpinner;
+          else noApprovedTrackers
+        "
+      >
+        <mat-card class="heading">
+          <div>EMPLOYEE EMAIL</div>
+          <div>STATUS</div>
+          <div>REMARKS</div>
+          <div></div>
+        </mat-card>
+        <mat-card class="data" *ngFor="let tracker of approvedTrackers">
+          <div>
+            <mat-icon class="mat-18" [style.color]="'#d27a4f'">mail</mat-icon>
+            {{ tracker.employeeEmail }}
+          </div>
+          <div>
+            <mat-icon
+              [style.color]="
+                tracker.status == 'COMPLETED'
+                  ? '#8cc73c'
+                  : tracker.status == 'REVERTED'
+                  ? '#f66178'
+                  : '#f2b551'
+              "
+              >fiber_manual_record</mat-icon
+            >
+            {{ tracker.status.toUpperCase() }}
+          </div>
+          <div>{{ tracker.remarks }}</div>
+          <div>
+            <button
+              mat-stroked-button
+              class="view-details"
+              (click)="viewDetails(tracker)"
+              color="primary"
+            >
+              View Details
+            </button>
+          </div>
+        </mat-card>
+      </div>
+
+      <ng-template #noApprovedTrackers>
+        <div class="not-available">
+          <img
+            class="oops"
+            src="assets/images/minion-oops.png"
+            alt=""
+            srcset=""
+          />
+          Oops! No Available Trackers as of Now!
+        </div>
+      </ng-template>
+    </mat-tab>
+
+    <!-- Reverted Records -->
+    <mat-tab>
+      <ng-template mat-tab-label>
+        Reverted &nbsp;
+        <a mat-mini-fab [style.backgroundColor]="'#f66178'">
+          <mat-icon class="mat-18">north_east</mat-icon>
+        </a>
+      </ng-template>
+      <!-- Data -->
+      <div
+        class="list"
+        *ngIf="
+          revertedTrackers.length > 0 || showSpinner;
+          else noRevertedTrackers
+        "
+      >
+        <mat-card class="heading">
+          <div>EMPLOYEE EMAIL</div>
+          <div>STATUS</div>
+          <div>REMARKS</div>
+          <div></div>
+        </mat-card>
+        <mat-card class="data" *ngFor="let tracker of revertedTrackers">
+          <div>
+            <mat-icon class="mat-18" [style.color]="'#d27a4f'">mail</mat-icon>
+            {{ tracker.employeeEmail }}
+          </div>
+          <div>
+            <mat-icon
+              [style.color]="
+                tracker.status == 'COMPLETED'
+                  ? '#8cc73c'
+                  : tracker.status == 'REVERTED'
+                  ? '#f66178'
+                  : '#f2b551'
+              "
+              >fiber_manual_record</mat-icon
+            >
+            {{ tracker.status.toUpperCase() }}
+          </div>
+          <div>{{ tracker.remarks }}</div>
+          <div>
+            <button
+              mat-stroked-button
+              class="view-details"
+              (click)="viewDetails(tracker)"
+              color="primary"
+            >
+              View Details
+            </button>
+          </div>
+        </mat-card>
+      </div>
+
+      <ng-template #noRevertedTrackers>
+        <div class="not-available">
+          <img
+            class="oops"
+            src="assets/images/minion-oops.png"
+            alt=""
+            srcset=""
+          />
+          Oops! No Available Trackers as of Now!
+        </div>
+      </ng-template>
+    </mat-tab>
+  </mat-tab-group>
+</div>

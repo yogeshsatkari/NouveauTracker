@@ -1,0 +1,61 @@
+mat-toolbar {
+  justify-content: space-between;
+}
+
+mat-tab-group {
+  background-color: #f5f7fb;
+  height: 92vh;
+}
+
+mat-paginator,
+mat-expansion-panel {
+  background-color: #f5f7fb;
+}
+
+.content {
+  padding: 16px;
+  max-width: 1500px;
+  height: 760px;
+}
+
+.content > mat-card {
+  width: 200px;
+}
+
+mat-card:hover {
+  transform: translateY(-0.5%);
+  box-shadow: 0 2rem 4rem rgba(0, 0, 0, 0.5);
+  background-color: lightgoldenrodyellow;
+}
+
+mat-icon {
+  font-family: "Material Icons";
+  cursor: pointer;
+}
+
+.prevent-click {
+  pointer-events: none;
+}
+
+.example-spacer {
+  flex: 1 1 auto;
+}
+
+.program-cards,
+.project-cards {
+  display: inline-flex;
+  justify-content: space-evenly;
+}
+
+.progress-spinner {
+  margin: 0 auto;
+}
+
+h1 {
+  text-align: center;
+}
+
+.filter-buttons {
+  margin: 7px;
+  width: 100px;
+}

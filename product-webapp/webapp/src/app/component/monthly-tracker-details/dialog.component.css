@@ -1,0 +1,41 @@
+
+.dialog{
+  position:relative;
+  width: 400px;
+  text-align: left;
+}
+.date{
+  font-size: 20px;
+  color: #888;
+}
+.mat-18{
+  vertical-align: bottom;
+  transform: scale(1.2);
+}
+.list{
+  display:flex;
+  justify-content: space-between;
+  padding: 10px;
+}
+.hrs{
+  font-size:15px;
+  color: #8542e7;
+}
+.close{
+  position:absolute;
+  top:0;
+  right:0;
+}
+.mat-dialog-title{
+  display: block;
+  border-radius: 20px;
+  font-size: 20px;
+  color: #fff;
+  padding: 0px 20px;
+  background-color:  #7c32ec;
+  width: max-content;
+
+}
+h3{
+  font-weight: 500;
+}

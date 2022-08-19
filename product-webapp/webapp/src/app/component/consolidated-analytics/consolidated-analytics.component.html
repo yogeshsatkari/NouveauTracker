@@ -1,0 +1,17 @@
+<h1>{{barChartHeader}}</h1>
+<div id="barchart">
+    <canvas baseChart
+    [datasets]="barChartData"
+    [labels]="barChartLabels"
+    [options]="barChartOptions"
+    [legend]="barChartLegend"
+    [chartType]="barChartType"></canvas>
+</div>
+<h1>{{pieChartHeader}}</h1>
+<div id="piechart">
+    <canvas baseChart
+    [datasets]="pieChartData"
+    [labels]="pieChartLabels"
+    [legend]="pieChartLegend"
+    [chartType]="pieChartType"></canvas>
+</div>

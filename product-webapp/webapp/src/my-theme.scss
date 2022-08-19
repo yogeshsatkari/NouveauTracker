@@ -1,0 +1,42 @@
+@import "../node_modules/@angular/material/theming";
+@include mat-core();
+
+$md-mcgpalette0: (
+    50 : #e6e7eb,
+    100 : #c0c3cc,
+    200 : #969caa,
+    300 : #6b7488,
+    400 : #4c566f,
+    500 : #2c3855,
+    600 : #27324e,
+    700 : #212b44,
+    800 : #1b243b,
+    900 : #10172a,
+    A100 : #6a8eff,
+    A200 : #3767ff,
+    A400 : #0440ff,
+    A700 : #0038ea,
+    contrast: (
+        50 : #000000,
+        100 : #000000,
+        200 : #000000,
+        300 : #ffffff,
+        400 : #ffffff,
+        500 : #ffffff,
+        600 : #ffffff,
+        700 : #ffffff,
+        800 : #ffffff,
+        900 : #ffffff,
+        A100 : #000000,
+        A200 : #ffffff,
+        A400 : #ffffff,
+        A700 : #ffffff,
+    )
+);
+
+$my-primary: mat-palette($md-mcgpalette0, 500);
+$my-accent: mat-palette($mat-pink, A200);
+
+$my-theme: mat-light-theme($my-primary, $my-accent);
+
+@include angular-material-theme($my-theme);

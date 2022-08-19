@@ -1,0 +1,45 @@
+<h2 mat-dialog-title>Add Members for {{ programName }}</h2>
+
+<mat-dialog-content class="mat-typography">
+  <mat-form-field class="example-chip-list" appearance="outline">
+    <mat-label>Add Members</mat-label>
+    <mat-chip-list #chipList>
+      <mat-chip *ngFor="let member of members" (removed)="remove(member)">
+        {{ member }}
+        <mat-icon matChipRemove>cancel</mat-icon>
+      </mat-chip>
+      <input
+        placeholder="New Member..."
+        [formControl]="memberCtrl"
+        [matAutocomplete]="auto"
+        [matChipInputFor]="chipList"
+        [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+        (matChipInputTokenEnd)="add($event)"
+      />
+    </mat-chip-list>
+    <mat-autocomplete
+      #auto="matAutocomplete"
+      (optionSelected)="selected($event)"
+    >
+      <mat-option
+        *ngFor="let member of filteredMembers | async"
+        [value]="member"
+      >
+        {{ member }}
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Cancel</button>
+  <button
+    mat-button
+    [mat-dialog-close]="true"
+    (click)="addMembersToProgram()"
+    color="primary"
+    mat-flat-button
+  >
+    Add
+  </button>
+</mat-dialog-actions>

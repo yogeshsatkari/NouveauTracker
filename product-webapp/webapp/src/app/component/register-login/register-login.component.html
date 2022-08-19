@@ -1,0 +1,232 @@
+<div class="maindiv">
+  <div style="display: flex; flex-wrap: wrap; justify-content: space-around;">
+      <div><br><br>
+        <h1>NouveauTracker</h1><br><br><br>
+        <h2>No more hassles!</h2>
+        <h2>Track time directly to Agile projects</h2><br>
+        <div class="logo-holder">
+          <div class="bar fill2"></div>
+          <div class="bar fill4"></div>
+          <div class="bar fill5"></div>
+          <div class="bar fill6"></div>
+          <div class="bar"></div>
+          <div class="bar fill1"></div>
+          <div class="bar fill3"></div>
+        </div>
+      </div>
+      <div>
+        <mat-card class="mat-elevation-z5">
+          <!-- <mat-card-title style="text-align:center;">Login / Register</mat-card-title> -->
+          <mat-tab-group mat-stretch-tabs class="example-stretched-tabs" animationDuration="1000ms" dynamicHeight [(selectedIndex)]="indexOfSelectedTab">
+            <mat-tab label="Login" id="logintab">
+                <mat-card-content>
+                  <form [formGroup]="loginFormGroup" (ngSubmit)="onLogin()">
+                    <mat-form-field>
+                      <input
+                        matInput
+                        placeholder="Email"
+                        required
+                        formControlName="emailId">
+                        <mat-error>Email must be valid</mat-error>
+                      <mat-icon matSuffix>email</mat-icon>
+                    </mat-form-field>
+                    <mat-form-field>
+                      <input
+                        matInput
+                        placeholder="Password"
+                        [type]="hideLoginPassword ? 'password' : 'text'"
+                        formControlName="password"
+                        required
+                        minlength="8">
+                        <mat-error>
+                          Password must contain atleast 8 characters (one uppercase, one lowercase, a digit between 0-9 and a special character)
+                        </mat-error>               
+                      <mat-icon matSuffix (click)="hideLoginPassword = !hideLoginPassword">{{hideLoginPassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+                    </mat-form-field>
+                    <mat-checkbox style="margin-bottom: 35px;">Remember Me!</mat-checkbox>
+                    <button
+                        mat-raised-button
+                        type="submit"  [disabled]="loginFormGroup.invalid"
+                        color="primary"
+                        class="login-button">
+                        <span>Login</span> 
+                    </button>
+                    <!-- <button (click)="loginUsingGoogle()" mat-raised-button type="button" class="login-button">
+                       <a style="color: black;">
+                        <mat-icon svgIcon="logo" style="padding-right: 5px; width: 20px; margin-bottom: 13px;"></mat-icon> 
+                        <span> &nbsp; Login with Google</span> 
+                       </a> 
+                    </button> -->
+                  </form>
+                </mat-card-content>
+            </mat-tab>
+            <mat-tab label="Register">
+              <mat-card-content>
+                <form [formGroup]="registerFormGroup" #formGroupDirective="ngForm" (ngSubmit)="onRegister(formGroupDirective)">
+                  <mat-form-field>
+                    <input matInput required placeholder="Employee Name" formControlName="employeeName">
+                    <mat-icon matSuffix>perm_identity</mat-icon>
+                    <mat-error>
+                      What's your name?
+                    </mat-error>
+                  </mat-form-field>
+                  <mat-form-field>
+                    <input
+                      matInput
+                      required
+                      placeholder="Email"
+                      formControlName="emailId">
+                      <mat-error>Email must be valid</mat-error>
+                    <mat-icon matSuffix>email</mat-icon>
+                  </mat-form-field>
+                  <mat-form-field>
+                    <input
+                      matInput
+                      required
+                      placeholder="Password"
+                      [type]="hideRegisterPassword ? 'password' : 'text'"
+                      minlength="8"
+                      formControlName="password">
+                      <mat-error>
+                        Password must contain atleast 8 characters (one uppercase, one lowercase, a digit between 0-9 and a special character)
+                      </mat-error>
+                    <mat-icon matSuffix (click)="hideRegisterPassword = !hideRegisterPassword">{{hideRegisterPassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+    
+                  </mat-form-field>
+                  <button
+                    mat-raised-button
+                    type="submit" [disabled]="registerFormGroup.invalid"
+                    color="primary"
+                    class="login-button">
+                   <span>Register</span> 
+                  </button>
+                </form>
+              </mat-card-content>
+            </mat-tab>
+          </mat-tab-group>
+        </mat-card>
+      </div>
+    </div>
+</div>
+  <!-- ///////////////////////////////////// -->
+<div  class="features-div">
+  <div class="features-head">
+    <h1>Time Management Features</h1>
+    <h2>Across Devices</h2>
+  
+    <p>Track productivity, attendance, and 
+      performance with a simple time tracker and calendar.
+    </p>
+  </div>
+  <div class="cards">
+    <div class="col">
+      <div class="card aqua">
+        <h2>Time Tracker</h2>
+        <p>Update your daily tracker in less than 30 seconds manually</p>
+      </div>
+    </div>
+    <div class="col">
+      <div class="card red">
+        <h2>Program/Project</h2>
+        <p>Operations team adds new program/project and assign it to a manager</p>
+      </div>
+    
+      <div class="card orange">
+        <h2>Reports</h2>
+        <p>Consolidated reports, approval sheets and final reports, and export the data</p>
+      </div>
+    </div>
+    <div class="col">
+      <div class="card blue">
+        <h2>Dashboard</h2>
+        <p>Visual dashboards to see where you spend time and what your team is working on.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- ///////////////////////////////////// -->
+<div class="why-nouveautracker">
+  <div class="features-head">
+    <h1 style="color: rgb(226, 223, 223)">Why track time with NouveauTracker</h1>
+  </div>
+  <div class="why-container" >
+    <div class="why-features" >
+      <img src="../../../assets/productivity.jpg" alt="">
+      <h2>Boost Productivity</h2>
+      <p>Track time you spend on activities, see where your time goes, and improve your time management skills. </p>
+    </div>
+    <div class="why-features">
+      <img src="../../../assets/billing.jpg" alt="">
+      <h2>Bill Clients</h2>
+      <p>Track billable time, show clients how much you've worked, see how much money you've earned, and create invoices.</p>
+    </div>
+    <div class="why-features">
+      <img src="../../../assets/business-intelligence.jpg" alt="">
+      <h2>Business Intelligence</h2>
+      <p>Measure time spent on daily activities to find opportunities for improvements, understand time spent on ad-hoc requests and workload distribution, and improve project efficiency and cost capitalisation.</p>
+    </div>
+  </div>
+</div>
+<!-- ////////////////////////////////////////// -->
+<div class="email-24">
+  <div class="leaf-body">
+    <div class="leaf-container">
+      <div>
+        <div class="leafs">
+          <img class="leaf1" src="https://assets.codepen.io/2621168/leaf1.png" alt="leaf">
+          <img class="leaf2" src="https://assets.codepen.io/2621168/leaf2.png" alt="leaf">
+          <img class="leaf3" src="https://assets.codepen.io/2621168/leaf3.png" alt="leaf">
+        </div>
+        
+        <svg viewBox="0 0 1 1"  width="250.0px" height="100.0px" overflow="visible">
+          <defs >
+              <clipPath  clipPathUnits="objectBoundingBox" id="deermask">
+                  <path d="M303.49,371.1l-.2-.511a.145.145,0,0,0-.188-.082l-.511.2a.145.145,0,0,0-.082.188l.2.511a.145.145,0,0,0,.188.082l.511-.2A.145.145,0,0,0,303.49,371.1Zm-.547.166a.079.079,0,0,1-.1-.045l-.109-.281a.079.079,0,0,1,.045-.1l.281-.109a.079.079,0,0,1,.1.045l.109.281a.079.079,0,0,1-.045.1Z" transform="translate(-302.5 -370.5)" fill="#fff"/>
+              </clipPath>
+          </defs>
+        </svg> 
+      </div>
+      <div >
+        <h2> &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; Get emails and stay updated ! </h2>
+        <!-- <h3>Gmail</h3> -->
+            
+      </div>
+    </div>  
+  </div>
+  <div class="leaf-body">
+    <div class="leaf-container">
+      <div >
+        <h2>24/7 service for our customers &nbsp;&nbsp;</h2>
+      </div>
+      <div>
+        <div class="loop-wrapper">
+          <div class="mountain"></div>
+          <div class="hill"></div>
+          <div class="tree"></div>
+          <div class="tree"></div>
+          <div class="tree"></div>
+          <div class="rock"></div>
+          <div class="truck"></div>
+          <div class="wheels"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- ////////////////////////////////////////////////// -->
+<footer>
+  <ul class="social-icon">
+    <li><a href="#"><img src="../../../assets/facebook white.ico" alt=""></a></li>
+    <li><a href="#"><img src="../../../assets/twitter white.ico" alt=""></a></li>
+    <li><a href="#"><img src="../../../assets/gmail white.ico" alt=""></a></li>
+    <li><a href="#"><img src="../../../assets/linkedin white.ico" alt=""></a></li>
+  </ul>
+  <ul class="menu">
+    <li><a href="">Home</a></li>
+    <li><a href="">Team</a></li>
+    <li><a href="">Feedback</a></li>
+  </ul>
+  <!-- <p>©2022 NouveauTracker | All Rights Reserved</p>   -->
+</footer>
+

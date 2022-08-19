@@ -1,0 +1,67 @@
+# Global configurations
+global:
+  scrape_interval: 15s # Sets scrape interval to every 15 seconds. Default is every 1 minute.
+  evaluation_interval: 15s # Evaluates rules every 15 seconds. Default is every 1 minute.
+  # scrape_timeout is set to the global default (10s)
+
+# Load rules once and periodically evaluate them according to the global 'evaluation_interval'
+rule_files:
+  # - "first_rules.yml"
+  # - "second_rules.yml"
+
+# A scrape configuration containing one endpoint to scrape (prometheus itself)
+scrape_configs:
+  # The job name is added as a label 'job: job_name' to any time series scraped from this config
+  - job_name: 'prometheus'
+    # metrics path defaults to '/metrics'
+    # scheme defaults to 'http'
+    static_configs:
+      - targets: ['localhost:9090']
+
+  - job_name: 'spring-actuator'
+    metrics_path: '/actuator/prometheus'
+    scrape_interval: 5s
+    static_configs:
+      - targets: ['172.31.35.171:8080']
+
+  - job_name: 'email-service'
+    metrics_path: '/actuator/prometheus'
+    scrape_interval: 5s
+    static_configs:
+      - targets: ['172.31.35.171:8087']
+
+  - job_name: 'eureka-server'
+    metrics_path: '/actuator/prometheus'
+    scrape_interval: 5s
+    static_configs:
+      - targets: ['172.31.35.171:8761']
+
+  - job_name: 'api-gateway'
+    metrics_path: '/actuator/prometheus'
+    scrape_interval: 5s
+    static_configs:
+      - targets: ['172.31.35.171:8080']
+
+  - job_name: 'authentication-service'
+    metrics_path: '/actuator/prometheus'
+    scrape_interval: 5s
+    static_configs:
+      - targets: ['172.31.35.171:8085']
+
+  - job_name: 'employee-service'
+    metrics_path: '/actuator/prometheus'
+    scrape_interval: 5s
+    static_configs:
+      - targets: ['172.31.35.171:8086']
+
+  - job_name: 'program-service'
+    metrics_path: '/actuator/prometheus'
+    scrape_interval: 5s
+    static_configs:
+      - targets: ['172.31.35.171:8081']
+
+  - job_name: 'time-tracker-service'
+    metrics_path: '/actuator/prometheus'
+    scrape_interval: 5s
+    static_configs:
+      - targets: ['172.31.35.171:8082']

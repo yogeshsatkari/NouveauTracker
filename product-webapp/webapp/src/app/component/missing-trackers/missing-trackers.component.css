@@ -1,0 +1,38 @@
+h2{
+    text-align: center;
+}
+h4#count{
+    color:red;
+    font-weight: bold;
+    font-size: large;
+
+}
+h4{
+margin-left: 10px;
+    
+}
+div#head{
+    display:flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+}
+.container{
+    width: auto;
+    height: auto;
+    border: 1px solid rgb(187, 97, 97);
+    box-shadow: 0 0 5px pink;
+    border-radius: 10px;
+    overflow: scroll    ;
+}
+h1{
+    text-align: center;
+    padding:20px;
+}
+#inner-container{
+    
+    display:flex;
+    flex-flow: row nowrap;
+}
+#first,#second{
+    margin:10px
+}

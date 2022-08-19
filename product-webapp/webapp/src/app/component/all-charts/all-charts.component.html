@@ -1,0 +1,33 @@
+<div class="container">
+  <div class="secondary-container">
+    <div class="title">
+      DASHBOARDS
+    </div><br><br>
+    <div class="chart-div">
+      <ul class="nav nav-tabs">
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/home/analytics/external-programs">External Programs</a>
+        </li>
+        <li  class="nav-item">
+          <a class="nav-link" routerLink="/home/analytics/internal-projects">Internal Projects</a>
+        </li>
+        <li  *ngIf="role==='OPERATIONS'" class="nav-item">
+          <a class="nav-link" routerLink="/home/analytics/employee-distribution-in-external-programs">Employee Distribution (Programs)</a>
+        </li>
+        <li  *ngIf="role==='OPERATIONS'" class="nav-item">
+          <a class="nav-link" routerLink="/home/analytics/employee-distribution-in-internal-projects">Employee Distribution (Projects)</a>
+        </li>
+        <!-- <li class="nav-item">
+          <a class="nav-link" routerLink="/home/analytics/pie-chart">Pie Chart</a>
+        </li> -->
+      </ul>
+    </div>
+    <div>
+        <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>
+
+
+<script src="../../../../node_modules\chart.js\dist\chart.js"></script>
+

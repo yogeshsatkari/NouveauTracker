@@ -1,0 +1,351 @@
+<h1 data-text="CONSOLIDATED REPORTS">CONSOLIDATED REPORTS</h1>
+<mat-tab-group>
+    <mat-tab label="Employee">
+        <div>
+            <mat-form-field appearance="standard">
+                <mat-label>Filter</mat-label>
+                <input matInput (keyup)="applyFilterEmp($event)" placeholder="Ex. ium" #input>
+            </mat-form-field>
+
+
+
+            <mat-form-field appearance="fill" class="width-10per">
+                <mat-label>Choose Month</mat-label>
+                <mat-select [(ngModel)]="selectedValueMonth" name="month">
+                    <mat-option *ngFor="let month of months" [value]="month">
+                        {{month}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field appearance="fill" class="width-10per">
+                <mat-label>Choose Year</mat-label>
+                <mat-select [(ngModel)]="selectedValueYear" name="year">
+                    <mat-option *ngFor="let year of years" [value]="year">
+                        {{year}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <mat-icon id="search" (click)="fetchAllDailyTrackers()">search</mat-icon>
+            <mat-checkbox class="margin-left-100px" color="primary" [(ngModel)]="yearlyReport">Yearly Report</mat-checkbox>
+
+            <img src="../../../assets/download_icon.png" class="download" matTooltip="download report" (click)="downloadEmpReport()">
+            <img src="../../../assets/viewAnalyticsIcon.png" id="analytics" matTooltip="View Analytics" (click)="openAnalyticsEmp()">
+
+
+        </div>
+
+
+        <table mat-table [dataSource]="dataSourceEmp" class="mat-elevation-z8">
+
+        
+            <ng-container matColumnDef="image">
+                <th mat-header-cell *matHeaderCellDef> Image </th>
+                <td mat-cell *matCellDef="let element"><img class="profile" *ngIf="element.image" src="data:image/png;base64,{{element.image}}" alt="imagefound"> <img class="profile" *ngIf="!element.image" src="../../../assets/noProfileImage.jpg" alt="imageNotFound"></td>
+            </ng-container>
+
+            
+            <ng-container matColumnDef="name">
+                <th mat-header-cell *matHeaderCellDef> Name </th>
+                <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+            </ng-container>
+
+
+            <ng-container matColumnDef="email">
+                <th mat-header-cell *matHeaderCellDef> Email </th>
+                <td mat-cell *matCellDef="let element"> {{element.email}} </td>
+            </ng-container>
+
+
+
+            <ng-container matColumnDef="projects-programs">
+                <th mat-header-cell *matHeaderCellDef>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    Projects-Programs</th>
+                <td mat-cell *matCellDef="let element">
+                    <mat-accordion>
+                        <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+                            <mat-expansion-panel-header>
+                                <mat-panel-title>
+                                    &nbsp;&nbsp;Project Details<div id="space-200px"></div>Program Details
+                                </mat-panel-title>
+                            </mat-expansion-panel-header>
+                            <div class="left">
+                                <div class="flex-row border" *ngFor="let projectTime of element.projects">
+                                    <p>{{projectTime.project}}</p>
+                                    <p>{{projectTime.time}}hrs</p>
+                                </div>
+                            </div>
+                            <div class="right">
+                                <div class="flex-row border" *ngFor="let programTime of element.programs">
+                                    <p>{{programTime.program}}</p>
+                                    <p>{{programTime.time}}hrs</p>
+                                </div>
+                            </div>
+
+                        </mat-expansion-panel>
+                    </mat-accordion>
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="projectHrs">
+                <th mat-header-cell *matHeaderCellDef>Project</th>
+                <td mat-cell *matCellDef="let element" align="center">{{element.totalProjHrs}}</td>
+            </ng-container>
+
+
+
+
+            <ng-container matColumnDef="programHrs">
+                <th mat-header-cell *matHeaderCellDef align="center"> Program </th>
+                <td mat-cell *matCellDef="let element" align="center"> {{element.totalProgHrs}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="self_Learning_Hrs">
+                <th mat-header-cell *matHeaderCellDef>Self Learning</th>
+                <td mat-cell *matCellDef="let element" align="center"> {{element.self_Learning_Hrs}} </td>
+            </ng-container>
+
+
+
+            <ng-container matColumnDef="leaves">
+                <th mat-header-cell *matHeaderCellDef> Leaves </th>
+                <td mat-cell *matCellDef="let element" align="center" class="leaves" matTooltip="Leave Details" (click)="showLeaves(element)"> {{element.leaves}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="manager">
+                <th mat-header-cell *matHeaderCellDef align="center">Manager</th>
+                <td mat-cell *matCellDef="let element"> {{element.manager}} </td>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="displayedColumnsEmp"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumnsEmp;"></tr>
+
+            <!-- Row shown when there is no matching data. -->
+            <tr class="mat-row" *matNoDataRow>
+                <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+            </tr>
+        </table>
+    </mat-tab>
+
+    <!-- program report -->
+    <mat-tab label="Programs"> 
+        <div>
+            <mat-form-field appearance="standard">
+                <mat-label>Filter</mat-label>
+                <input matInput (keyup)="applyFilterProg($event)" placeholder="Ex. ium" #input>
+            </mat-form-field>
+
+
+
+
+            <mat-form-field appearance="fill" class="width-10per">
+                <mat-label>Choose Year</mat-label>
+                <mat-select [(ngModel)]="selectedValueYearProg" name="year" (ngModelChange)="fetchAllPrograms()"  matTooltip="Year Of Creation">
+                    <mat-option *ngFor="let year of years" [value]="year">
+                        {{year}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <img src="../../../assets/download_icon.png" class="download" matTooltip="download report" (click)="downloadProgReport()">
+            <img src="../../../assets/viewAnalyticsIcon.png" id="analytics" matTooltip="View Analytics" (click)="openAnalyticsProg()">
+
+        </div>
+
+
+        <table mat-table [dataSource]="dataSourceProg" class="mat-elevation-z8">
+
+            <!-- Position Column -->
+            <ng-container matColumnDef="programName">
+                <th mat-header-cell *matHeaderCellDef> Program</th>
+                <td mat-cell *matCellDef="let element"><ngx-avatar name={{element.programName}} [round]="true" size="40"></ngx-avatar><span> {{element.programName}}</span></td>
+            </ng-container>
+
+            <!-- Name Column -->
+            <ng-container matColumnDef="programType">
+                <th mat-header-cell *matHeaderCellDef> Type </th>
+                <td mat-cell *matCellDef="let element"> {{element.programType}} </td>
+            </ng-container>
+
+            <!-- Weight Column -->
+            <ng-container matColumnDef="createdOn">
+                <th mat-header-cell *matHeaderCellDef> Created On </th>
+                <td mat-cell *matCellDef="let element"> {{element.createdOn | date:"dd/MM/yyyy"}}<td>
+            </ng-container>
+
+
+            <ng-container matColumnDef="startDate">
+                <th mat-header-cell *matHeaderCellDef> Start Date</th>
+                <td mat-cell *matCellDef="let element" align="center">{{element.startDate | date:"dd/MM/yyyy"}}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="endDate">
+                <th mat-header-cell *matHeaderCellDef align="center"> End Date </th>
+                <td mat-cell *matCellDef="let element" align="center"> {{element.endDate | date:"dd/MM/yyyy"}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="organizationName">
+                <th mat-header-cell *matHeaderCellDef> Organisation </th>
+                <td mat-cell *matCellDef="let element" ><img class="profile" *ngIf="element.organizationBrandLogo" src="data:image/png;base64,{{element.organizationBrandLogo}}" alt="imagefound"> <img class="profile" *ngIf="!element.organizationBrandLogo" src="../../../assets/noProfileImage.jpg" alt="imageNotFound"> {{element.organizationName}}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="managerEmailId">
+                <th mat-header-cell *matHeaderCellDef align="center"> Manager </th>
+                <td mat-cell *matCellDef="let element" align="center"> {{element.managerEmailId}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="memberList">
+                <th mat-header-cell *matHeaderCellDef align="center"> Working Members </th>
+                <td mat-cell *matCellDef="let element" align="center"> 
+                    <mat-accordion>
+                        <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+                            <mat-expansion-panel-header>
+                                <mat-panel-title>
+                                    On-Program Employees
+                                </mat-panel-title>
+                            </mat-expansion-panel-header>
+                            <div >
+                                <div class="flex-row-apart border" *ngFor="let memberHours of element.memberList">
+                                    <p>{{memberHours.member}}</p>
+                                    <p>{{memberHours.hours}}hr</p>
+                                </div>
+                            </div>
+                        </mat-expansion-panel>
+                    </mat-accordion>
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="totalHours">
+                <th mat-header-cell *matHeaderCellDef align="center"> Total Hours </th>
+                <td mat-cell *matCellDef="let element" align="center"> {{element.totalHours}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="programStatus">
+                <th mat-header-cell *matHeaderCellDef align="center"> Status </th>
+                <td mat-cell *matCellDef="let element" align="center"> {{element.programStatus}} </td>
+            </ng-container>
+
+           
+
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumnsProg"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumnsProg;"></tr>
+
+            <!-- Row shown when there is no matching data. -->
+            <tr class="mat-row" *matNoDataRow>
+                <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+            </tr>
+        </table>
+    </mat-tab>
+
+    <!-- project report -->
+    <mat-tab label="Projects">
+        <div>
+            <mat-form-field appearance="standard">
+                <mat-label>Filter</mat-label>
+                <input matInput (keyup)="applyFilterProj($event)" placeholder="Ex. ium" #input>
+            </mat-form-field>
+
+
+
+
+            <mat-form-field appearance="fill" class="width-10per">
+                <mat-label>Choose Year</mat-label>
+                <mat-select [(ngModel)]="selectedValueYearProj" name="year" (ngModelChange)="fetchAllProjects()" matTooltip="Year Of Creation">
+                    <mat-option *ngFor="let year of years" [value]="year">
+                        {{year}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <img src="../../../assets/download_icon.png" class="download" matTooltip="download report" (click)="downloadProjReport()">
+            <img src="../../../assets/viewAnalyticsIcon.png" id="analytics" matTooltip="View Analytics" (click)="openAnalyticsProj()">
+
+        </div>
+
+
+        <table mat-table [dataSource]="dataSourceProj" class="mat-elevation-z8">
+
+            <!-- Position Column -->
+            <ng-container matColumnDef="projectName">
+                <th mat-header-cell *matHeaderCellDef> Project</th>
+                <td mat-cell *matCellDef="let element"><ngx-avatar name={{element.projectName}} [round]="true" size="40"></ngx-avatar><span> {{element.projectName}}</span></td>
+            </ng-container>
+
+          
+
+            <!-- Weight Column -->
+            <ng-container matColumnDef="createdOn">
+                <th mat-header-cell *matHeaderCellDef> Created On </th>
+                <td mat-cell *matCellDef="let element"> {{element.createdOn | date:"dd/MM/yyyy"}}<td>
+            </ng-container>
+
+
+            <ng-container matColumnDef="startDate">
+                <th mat-header-cell *matHeaderCellDef> Start Date</th>
+                <td mat-cell *matCellDef="let element" align="center">{{element.startDate | date:"dd/MM/yyyy"}}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="endDate">
+                <th mat-header-cell *matHeaderCellDef align="center"> End Date </th>
+                <td mat-cell *matCellDef="let element" align="center"> {{element.endDate | date:"dd/MM/yyyy"}} </td>
+            </ng-container>
+
+
+            <ng-container matColumnDef="managerEmailId">
+                <th mat-header-cell *matHeaderCellDef align="center"> Manager </th>
+                <td mat-cell *matCellDef="let element" align="center"> {{element.managerEmailId}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="memberList">
+                <th mat-header-cell *matHeaderCellDef align="center"> Working Members </th>
+                <td mat-cell *matCellDef="let element" align="center"> 
+                    <mat-accordion>
+                        <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+                            <mat-expansion-panel-header>
+                                <mat-panel-title>
+                                    On-Project Employees
+                                </mat-panel-title>
+                            </mat-expansion-panel-header>
+                            <div >
+                                <div class="flex-row-apart border" *ngFor="let memberHours of element.memberList">
+                                    <p>{{memberHours.member}}</p>
+                                    <p>{{memberHours.hours}}hr</p>
+                                </div>
+                            </div>
+                        </mat-expansion-panel>
+                    </mat-accordion>
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="totalHours">
+                <th mat-header-cell *matHeaderCellDef align="center"> Total Hours </th>
+                <td mat-cell *matCellDef="let element" align="center"> {{element.totalHours}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="projectStatus">
+                <th mat-header-cell *matHeaderCellDef align="center"> Status </th>
+                <td mat-cell *matCellDef="let element" align="center"> {{element.projectStatus}} </td>
+            </ng-container>
+
+           
+
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumnsProj"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumnsProj;"></tr>
+
+            <!-- Row shown when there is no matching data. -->
+            <tr class="mat-row" *matNoDataRow>
+                <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+            </tr>
+        </table>
+    </mat-tab>
+
+    
+
+</mat-tab-group>
+<table id="employeeTable">
+    <th>
+
+    </th>
+
+</table>

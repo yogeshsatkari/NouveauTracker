@@ -1,0 +1,27 @@
+button {
+  margin: 10px;
+  width: 100px;
+}
+
+.flex-container {
+  display: flex;
+}
+
+.example-spacer {
+  flex: 1 1 auto;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input::file-selector-button {
+  cursor: pointer;
+  color: #2c3855;
+  padding: 0.5em;
+  border: thin solid #2c3855;
+  border-radius: 3px;
+  background: transparent;
+}

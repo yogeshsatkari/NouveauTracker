@@ -1,0 +1,131 @@
+<div mat-dialog-title class="flex-container">
+  <h1 mat-dialog-title>Create New Project</h1>
+  <span class="example-spacer"></span>
+  <mat-icon [mat-dialog-close]="true" matTooltip="Close">close</mat-icon>
+</div>
+
+<mat-dialog-content class="mat-typography">
+  <form [formGroup]="addProjectForm" class="example-form">
+    <div fxFlex="100%" fxLayout="column">
+      <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="2%">
+        <mat-form-field
+          appearance="outline"
+          class="example-full-width"
+          fxFlex="50%"
+        >
+          <mat-label>Project Name</mat-label>
+          <input
+            formControlName="projectName"
+            #projectName
+            matInput
+            maxlength="20"
+            required
+          />
+          <mat-hint align="end"
+            >{{ projectName.value?.length || 0 }}/20</mat-hint
+          >
+        </mat-form-field>
+        <div fxFlex="50%">
+          <label>Project Logo </label>
+          <br />
+          <input
+            type="file"
+            accept="image/*"
+            formControlName="image"
+            (change)="onFileUpload($event)"
+            required
+          />
+        </div>
+      </div>
+
+      <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="2%">
+        <mat-form-field
+          appearance="outline"
+          class="example-full-width"
+          fxFlex="50%"
+        >
+          <mat-label>Manager Email Id</mat-label>
+          <mat-select formControlName="managerEmailId" required>
+            <mat-option
+              *ngFor="let manager of managersArray"
+              [value]="manager"
+              >{{ manager }}</mat-option
+            >
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field
+          appearance="outline"
+          class="example-full-width"
+          fxFlex="50%"
+        >
+          <mat-label>Enter Date Range for Project</mat-label>
+          <mat-date-range-input [rangePicker]="picker">
+            <input
+              formControlName="startDate"
+              matStartDate
+              placeholder="Start date"
+              required
+            />
+            <input
+              formControlName="endDate"
+              matEndDate
+              placeholder="End date"
+              required
+            />
+          </mat-date-range-input>
+          <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
+          <mat-datepicker-toggle
+            [for]="picker"
+            matSuffix
+          ></mat-datepicker-toggle>
+          <mat-date-range-picker #picker></mat-date-range-picker>
+        </mat-form-field>
+      </div>
+
+      <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="2%">
+        <mat-form-field
+          appearance="outline"
+          class="example-full-width"
+          fxFlex="33%"
+        >
+          <mat-label>Project Code</mat-label>
+          <input
+            formControlName="projectCode"
+            matInput
+            required
+            type="number"
+          />
+        </mat-form-field>
+        <mat-form-field
+          appearance="outline"
+          class="example-full-width"
+          fxFlex="33%"
+        >
+          <mat-label>Cost Code</mat-label>
+          <input formControlName="costCode" matInput required type="number" />
+        </mat-form-field>
+        <mat-form-field
+          appearance="outline"
+          class="example-full-width"
+          fxFlex="33%"
+        >
+          <mat-label>Customer Code</mat-label>
+          <input formControlName="customerId" matInput required type="number" />
+        </mat-form-field>
+      </div>
+    </div>
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button (click)="addProjectForm.reset()" mat-raised-button>Reset</button>
+  <button
+    [mat-dialog-close]="true"
+    (click)="saveProject()"
+    [disabled]="!addProjectForm.valid"
+    color="primary"
+    mat-raised-button
+  >
+    Create
+  </button>
+</mat-dialog-actions>

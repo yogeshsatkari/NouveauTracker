@@ -1,0 +1,291 @@
+<mat-tab-group mat-stretch-tabs class="example-tabs mat-elevation-z4">
+  <mat-tab label="PROGRAMS">
+    <mat-expansion-panel
+      *ngIf="role != 'EMPLOYEE'"
+      class="mat-elevation-z0"
+      [disabled]="true"
+      #mepProgram="matExpansionPanel"
+    >
+      <mat-expansion-panel-header>
+        <button
+          mat-icon-button
+          matTooltip="Refine Search"
+          color="primary"
+          (click)="mepProgram.expanded = !mepProgram.expanded"
+        >
+          <mat-icon>tune</mat-icon>
+        </button>
+        <span class="example-spacer"></span>
+
+        <button
+          mat-flat-button
+          matTooltip="Create New Program"
+          color="primary"
+          (click)="openAddProgramDialog()"
+          *ngIf="role === 'OPERATIONS'"
+        >
+          Add New Program
+        </button>
+      </mat-expansion-panel-header>
+
+      <form [formGroup]="filterProgramForm">
+        <div fxLayout="column">
+          <div
+            fxLayout="row"
+            fxLayout.xs="column"
+            fxLayoutGap="2%"
+            fxFlex="100%"
+          >
+            <mat-form-field
+              fxFlex="50%"
+              class="example-full-width"
+              appearance="outline"
+            >
+              <mat-label>Program Name</mat-label>
+              <input matInput formControlName="programName" />
+            </mat-form-field>
+            <mat-form-field
+              fxFlex="50%"
+              class="example-full-width"
+              appearance="outline"
+            >
+              <mat-label>Organization Name</mat-label>
+              <mat-select formControlName="organizationName">
+                <mat-option
+                  *ngFor="let organization of organizationNameArray"
+                  [value]="organization"
+                  >{{ organization }}</mat-option
+                >
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+          <div
+            fxLayout="row"
+            fxLayout.xs="column"
+            fxLayoutGap="2%"
+            fxFlex="100%"
+          >
+            <mat-form-field fxFlex="33%" appearance="outline">
+              <mat-label>Choose a date</mat-label>
+              <input
+                matInput
+                [matDatepicker]="programFilterPicker"
+                formControlName="programDate"
+              />
+              <mat-hint>MM/DD/YYYY</mat-hint>
+              <mat-datepicker-toggle
+                matSuffix
+                [for]="programFilterPicker"
+              ></mat-datepicker-toggle>
+              <mat-datepicker #programFilterPicker></mat-datepicker>
+            </mat-form-field>
+
+            <mat-form-field
+              *ngIf="role === 'OPERATIONS'"
+              fxFlex="33%"
+              appearance="outline"
+            >
+              <mat-label>Manager Email Id</mat-label>
+              <mat-select formControlName="managerEmailId">
+                <mat-option
+                  *ngFor="let manager of managersArray"
+                  [value]="manager"
+                  >{{ manager }}</mat-option
+                >
+              </mat-select>
+            </mat-form-field>
+
+            <mat-form-field fxFlex="33%" appearance="outline">
+              <mat-label>Program Status</mat-label>
+              <mat-select formControlName="programStatus">
+                <mat-option value="ACTIVE">Active</mat-option>
+                <mat-option value="INACTIVE">Inactive</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div align="end">
+          <button
+            class="filter-buttons"
+            (click)="resetFilterProgramForm()"
+            mat-flat-button
+          >
+            Reset
+          </button>
+          <button
+            class="filter-buttons"
+            mat-flat-button
+            color="primary"
+            (click)="filterPrograms()"
+          >
+            Apply
+          </button>
+        </div>
+      </form>
+    </mat-expansion-panel>
+
+    <mat-paginator
+      [length]="length"
+      [pageSize]="8"
+      (page)="getPaginatorData($event)"
+    >
+    </mat-paginator>
+
+    <div *ngIf="showProgramSpinner; else showPrograms">
+      <mat-spinner class="progress-spinner"></mat-spinner>
+    </div>
+
+    <ng-template #showPrograms>
+      <div *ngIf="programArray.length < 1; else showProgramArray">
+        <h1>No Programs to Show.</h1>
+      </div>
+      <ng-template #showProgramArray>
+        <app-program-card
+          class="program-cards"
+          *ngFor="let program of programArray | slice: lowValue:highValue"
+          [programData]="program"
+        ></app-program-card>
+      </ng-template>
+    </ng-template>
+  </mat-tab>
+
+  <mat-tab label="INTERNAL PROJECTS">
+    <mat-expansion-panel
+      *ngIf="role != 'EMPLOYEE'"
+      class="mat-elevation-z0"
+      [disabled]="true"
+      #mepProject="matExpansionPanel"
+    >
+      <mat-expansion-panel-header>
+        <button
+          mat-icon-button
+          matTooltip="Refine Search"
+          color="primary"
+          (click)="mepProject.expanded = !mepProject.expanded"
+        >
+          <mat-icon>tune</mat-icon>
+        </button>
+        <span class="example-spacer"></span>
+        <button
+          mat-button
+          (click)="openAddProjectDialog()"
+          mat-flat-button
+          color="primary"
+          *ngIf="role === 'OPERATIONS'"
+        >
+          Add New Project
+        </button>
+      </mat-expansion-panel-header>
+
+      <form [formGroup]="filterProjectForm">
+        <div fxLayout="column">
+          <div
+            fxLayout="row"
+            fxLayout.xs="column"
+            fxLayoutGap="2%"
+            fxFlex="100%"
+          >
+            <mat-form-field
+              fxFlex="50%"
+              class="example-full-width"
+              appearance="outline"
+            >
+              <mat-label>Project Name</mat-label>
+              <input matInput formControlName="projectName" />
+            </mat-form-field>
+
+            <mat-form-field fxFlex="50%" appearance="outline">
+              <mat-label>Project Status</mat-label>
+              <mat-select formControlName="projectStatus">
+                <mat-option value="ACTIVE">Active</mat-option>
+                <mat-option value="INACTIVE">Inactive</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+          <div
+            fxLayout="row"
+            fxLayout.xs="column"
+            fxLayoutGap="2%"
+            fxFlex="100%"
+          >
+            <mat-form-field fxFlex="50%" appearance="outline">
+              <mat-label>Choose a date</mat-label>
+              <input
+                matInput
+                [matDatepicker]="projectFilterPicker"
+                formControlName="projectDate"
+              />
+              <mat-hint>MM/DD/YYYY</mat-hint>
+              <mat-datepicker-toggle
+                matSuffix
+                [for]="projectFilterPicker"
+              ></mat-datepicker-toggle>
+              <mat-datepicker #projectFilterPicker></mat-datepicker>
+            </mat-form-field>
+
+            <mat-form-field
+              *ngIf="role === 'OPERATIONS'"
+              fxFlex="50%"
+              appearance="outline"
+            >
+              <mat-label>Manager Email Id</mat-label>
+              <mat-select formControlName="managerEmailId">
+                <mat-option
+                  *ngFor="let manager of managersArray"
+                  [value]="manager"
+                  >{{ manager }}</mat-option
+                >
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div align="end">
+          <button
+            class="filter-buttons"
+            (click)="resetFilterProjectForm()"
+            mat-flat-button
+          >
+            Reset
+          </button>
+          <button
+            class="filter-buttons"
+            mat-flat-button
+            color="primary"
+            (click)="filterProjects()"
+          >
+            Apply
+          </button>
+        </div>
+      </form>
+    </mat-expansion-panel>
+
+    <mat-paginator
+      [length]="projectPaginatorLength"
+      [pageSize]="8"
+      (page)="getPaginatorData($event)"
+    >
+    </mat-paginator>
+
+    <div *ngIf="showProjectSpinner; else showProjects">
+      <mat-spinner class="progress-spinner"></mat-spinner>
+    </div>
+
+    <ng-template #showProjects>
+      <div *ngIf="projectArray.length < 1; else showProjectsArray">
+        <h1>No Projects to Show.</h1>
+      </div>
+
+      <ng-template #showProjectsArray>
+        <app-project-card
+          class="project-cards"
+          *ngFor="let project of projectArray | slice: lowValue:highValue"
+          [projectData]="project"
+        ></app-project-card>
+      </ng-template>
+    </ng-template>
+  </mat-tab>
+</mat-tab-group>
