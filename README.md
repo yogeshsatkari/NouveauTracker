@@ -3,4 +3,4 @@ NouveauTracker is a time-tracking system particularly built around the needs of 
 
 The system was up at https://nouveautracker.stackroute.io/ . Since the AWS service is expired now, I have uploaded the screenshots of live project.
 
-![](view-screenshots/).png)
+![](view-screenshots/1.png)
