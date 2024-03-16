@@ -53,5 +53,3 @@ The system was up at https://nouveautracker.stackroute.io/ . Since the AWS servi
 ![](view-screenshots/46.png)
 ![](view-screenshots/47.png)
 
-abcd
-
